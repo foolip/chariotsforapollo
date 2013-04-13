@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="bookid">
+  <metadata>
+    <meta content="cover-image" name="cover"/>
+    <dc:identifier id="bookid">urn:uuid:e051fd59-ac90-4600-91df-e5a242309af6</dc:identifier>
+    <dc:title>Chariots for Apollo: A History of Manned Lunar Spacecraft</dc:title>
+    <dc:creator>Courtney G. Brooks, James M. Grimwood, Loyd S. Swenson</dc:creator>
+    <dc:date>1979</dc:date>
+    <dc:publisher>NASA History Office</dc:publisher>
+    <dc:language>en</dc:language>
+  </metadata>
+  <manifest>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+    <item href="cover.jpg" id="cover-image" media-type="image/jpeg"/>
+    <item href="cover.html" id="cover" media-type="application/xhtml+xml"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="cover" linear="no"/>
+  </spine>
+  <guide>
+    <reference href="cover.html" title="Cover" type="cover"/>
+  </guide>
+</package>
