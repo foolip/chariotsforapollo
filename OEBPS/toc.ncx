@@ -19,5 +19,17 @@
       </navLabel>
       <content src="cover.html"/>
     </navPoint>
+    <navPoint id="foreword">
+      <navLabel>
+        <text>Foreword</text>
+      </navLabel>
+      <content src="foreword.html"/>
+    </navPoint>
+    <navPoint id="preface">
+      <navLabel>
+        <text>Preface</text>
+      </navLabel>
+      <content src="preface.html"/>
+    </navPoint>
   </navMap>
 </ncx>

@@ -13,9 +13,13 @@
     <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
     <item href="cover.jpg" id="cover-image" media-type="image/jpeg"/>
     <item href="cover.html" id="cover" media-type="application/xhtml+xml"/>
+    <item href="foreword.html" id="foreword" media-type="application/xhtml+xml"/>
+    <item href="preface.html" id="preface" media-type="application/xhtml+xml"/>
   </manifest>
   <spine toc="ncx">
     <itemref idref="cover" linear="no"/>
+    <itemref idref="foreword"/>
+    <itemref idref="preface"/>
   </spine>
   <guide>
     <reference href="cover.html" title="Cover" type="cover"/>
