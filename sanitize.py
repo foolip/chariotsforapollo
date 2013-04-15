@@ -50,19 +50,21 @@ html.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml')
 first('meta').setAttribute('content', 'application/xhtml+xml; charset=utf-8')
 
 # remove obsolete attributes
-body.removeAttribute('bgcolor')
+if body.hasAttribute('bgcolor'):
+    body.removeAttribute('bgcolor')
 
 # remove comments
 for n in walk(doc):
     if n.nodeType == n.COMMENT_NODE:
         remove(n)
 
-# remove the footer (empty elements at end of body)
+# remove the footer (empty elements and images at end of body)
 for n in reversed(list(walk(body))):
     if isempty(n):
         if n.nodeType == n.ELEMENT_NODE and n.tagName == 'img':
-            assert n.getAttribute('src') in \
-                ['previous.gif', 'next.gif', 'index.gif']
+            if n.getAttribute('src') not in \
+                    ['previous.gif', 'next.gif', 'index.gif']:
+                break
         remove(n)
     else:
         break
@@ -88,4 +90,4 @@ for n in walk(doc):
     if n.nodeType == n.TEXT_NODE:
         n.nodeValue = re.sub(r'\s*\n\s*', '\n', n.nodeValue)
 
-dst.write(html.toxml())
+dst.write(html.toxml('utf-8'))

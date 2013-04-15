@@ -31,5 +31,719 @@
       </navLabel>
       <content src="preface.html"/>
     </navPoint>
+    <navPoint id="ch1">
+      <navLabel>
+	<text>1. Concept to Challenge</text>
+      </navLabel>
+      <content src="ch1-1.html"/>
+      <navPoint id="ch1-1">
+	<navLabel>
+	  <text>1957 to Mid-1961</text>
+	</navLabel>
+	<content src="ch1-1.html"/>
+      </navPoint>
+      <navPoint id="ch1-2">
+	<navLabel>
+	  <text>Forging a National Space Agency</text>
+	</navLabel>
+	<content src="ch1-2.html"/>
+      </navPoint>
+      <navPoint id="ch1-3">
+	<navLabel>
+	  <text>The Starting</text>
+	</navLabel>
+	<content src="ch1-3.html"/>
+      </navPoint>
+      <navPoint id="ch1-4">
+	<navLabel>
+	  <text>The Goett Committee</text>
+	</navLabel>
+	<content src="ch1-4.html"/>
+      </navPoint>
+      <navPoint id="ch1-5">
+	<navLabel>
+	  <text>Focusing the Aim</text>
+	</navLabel>
+	<content src="ch1-5.html"/>
+      </navPoint>
+      <navPoint id="ch1-6">
+	<navLabel>
+	  <text>Priming the Pipeline</text>
+	</navLabel>
+	<content src="ch1-6.html"/>
+      </navPoint>
+      <navPoint id="ch1-7">
+	<navLabel>
+	  <text>The Feasibility Studies</text>
+	</navLabel>
+	<content src="ch1-7.html"/>
+      </navPoint>
+      <navPoint id="ch1-8">
+	<navLabel>
+	  <text>Portents for Apollo</text>
+	</navLabel>
+	<content src="ch1-8.html"/>
+      </navPoint>
+      <navPoint id="ch1-9">
+	<navLabel>
+	  <text>The Challenge</text>
+	</navLabel>
+	<content src="ch1-9.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ch2">
+      <navLabel>
+	<text>2. Project Planning and Contracting</text>
+      </navLabel>
+      <content src="ch2-1.html"/>
+      <navPoint id="ch2-1">
+	<navLabel>
+	  <text>May through December 1961</text>
+	</navLabel>
+	<content src="ch2-1.html"/>
+      </navPoint>
+      <navPoint id="ch2-2">
+	<navLabel>
+	  <text>Committees at Work</text>
+	</navLabel>
+	<content src="ch2-2.html"/>
+      </navPoint>
+      <navPoint id="ch2-3">
+	<navLabel>
+	  <text>Spacecraft Development Decision</text>
+	</navLabel>
+	<content src="ch2-3.html"/>
+      </navPoint>
+      <navPoint id="ch2-4">
+	<navLabel>
+	  <text>Astronavigation - The First Apollo Contract</text>
+	</navLabel>
+	<content src="ch2-4.html"/>
+      </navPoint>
+      <navPoint id="ch2-5">
+	<navLabel>
+	  <text>Contracting for the Command Module</text>
+	</navLabel>
+	<content src="ch2-5.html"/>
+      </navPoint>
+      <navPoint id="ch2-6">
+	<navLabel>
+	  <text>Influences on Booster Determination</text>
+	</navLabel>
+	<content src="ch2-6.html"/>
+      </navPoint>
+      <navPoint id="ch2-7">
+	<navLabel>
+	  <text>Help from the Department of Defense</text>
+	</navLabel>
+	<content src="ch2-7.html"/>
+      </navPoint>
+      <navPoint id="ch2-8">
+	<navLabel>
+	  <text>Choice of Facilities</text>
+	</navLabel>
+	<content src="ch2-8.html"/>
+      </navPoint>
+      <navPoint id="ch2-9">
+	<navLabel>
+	  <text>The Launch Vehicle: Question and Decision</text>
+	</navLabel>
+	<content src="ch2-9.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ch3">
+      <navLabel>
+	<text>3. Contending Modes</text>
+      </navLabel>
+      <content src="ch3-1.html"/>
+      <navPoint id="ch3-1">
+	<navLabel>
+	  <text>1959 to Mid-1962</text>
+	</navLabel>
+	<content src="ch3-1.html"/>
+      </navPoint>
+      <navPoint id="ch3-2">
+	<navLabel>
+	  <text>Proposals: Before and after May 1961</text>
+	</navLabel>
+	<content src="ch3-2.html"/>
+      </navPoint>
+      <navPoint id="ch3-3">
+	<navLabel>
+	  <text>LOR Gains a NASA Adherent</text>
+	</navLabel>
+	<content src="ch3-3.html"/>
+      </navPoint>
+      <navPoint id="ch3-4">
+	<navLabel>
+	  <text>Early Reaction to LOR</text>
+	</navLabel>
+	<content src="ch3-4.html"/>
+      </navPoint>
+      <navPoint id="ch3-5">
+	<navLabel>
+	  <text>Analysis of LOR</text>
+	</navLabel>
+	<content src="ch3-5.html"/>
+      </navPoint>
+      <navPoint id="ch3-6">
+	<navLabel>
+	  <text>Settling the Mode Issue</text>
+	</navLabel>
+	<content src="ch3-6.html"/>
+      </navPoint>
+      <navPoint id="ch3-7">
+	<navLabel>
+	  <text>Casting the Die</text>
+	</navLabel>
+	<content src="ch3-7.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ch4">
+      <navLabel>
+	<text>4. Matching Modules and Missions</text>
+      </navLabel>
+      <content src="ch4-1.html"/>
+      <navPoint id="ch4-1">
+	<navLabel>
+	  <text>1962</text>
+	</navLabel>
+	<content src="ch4-1.html"/>
+      </navPoint>
+      <navPoint id="ch4-2">
+	<navLabel>
+	  <text>The Team and the Tools </text>
+	</navLabel>
+	<content src="ch4-2.html"/>
+      </navPoint>
+      <navPoint id="ch4-3">
+	<navLabel>
+	  <text>Preliminary Designs for the Lunar Lander </text>
+	</navLabel>
+	<content src="ch4-3.html"/>
+      </navPoint>
+      <navPoint id="ch4-4">
+	<navLabel>
+	  <text>Pressures by PSAC </text>
+	</navLabel>
+	<content src="ch4-4.html"/>
+      </navPoint>
+      <navPoint id="ch4-5">
+	<navLabel>
+	  <text>Fitting the Lunar Module into Apollo</text>
+	</navLabel>
+	<content src="ch4-5.html"/>
+      </navPoint>
+      <navPoint id="ch4-6">
+	<navLabel>
+	  <text>NASA Adjustments for Apollo</text>
+	</navLabel>
+	<content src="ch4-6.html"/>
+      </navPoint>
+      <navPoint id="ch4-7">
+	<navLabel>
+	  <text>NASA-Grumman Negotiations</text>
+	</navLabel>
+	<content src="ch4-7.html"/>
+      </navPoint>
+      <navPoint id="ch4-8">
+	<navLabel>
+	  <text>End of a Phase</text>
+	</navLabel>
+	<content src="ch4-8.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ch5">
+      <navLabel>
+	<text>5. Command Modules and Program Changes</text>
+      </navLabel>
+      <content src="ch5-1.html"/>
+      <navPoint id="ch5-1">
+	<navLabel>
+	  <text>1963-1964</text>
+	</navLabel>
+	<content src="ch5-1.html"/>
+      </navPoint>
+      <navPoint id="ch5-2">
+	<navLabel>
+	  <text>The Headquarters Role</text>
+	</navLabel>
+	<content src="ch5-2.html"/>
+      </navPoint>
+      <navPoint id="ch5-3">
+	<navLabel>
+	  <text>Command Module: Problems and Progress</text>
+	</navLabel>
+	<content src="ch5-3.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ch6">
+      <navLabel>
+	<text>6. Lunar Module</text>
+      </navLabel>
+      <content src="ch6-1.html"/>
+      <navPoint id="ch6-1">
+	<navLabel>
+	  <text>1963-1964</text>
+	</navLabel>
+	<content src="ch6-1.html"/>
+      </navPoint>
+      <navPoint id="ch6-2">
+	<navLabel>
+	  <text>External Design</text>
+	</navLabel>
+	<content src="ch6-2.html"/>
+      </navPoint>
+      <navPoint id="ch6-3">
+	<navLabel>
+	  <text>Tailoring the Cockpit</text>
+	</navLabel>
+	<content src="ch6-3.html"/>
+      </navPoint>
+      <navPoint id="ch6-4">
+	<navLabel>
+	  <text>Hatches and Landing Gear</text>
+	</navLabel>
+	<content src="ch6-4.html"/>
+      </navPoint>
+      <navPoint id="ch6-5">
+	<navLabel>
+	  <text>Engines, Large and Small</text>
+	</navLabel>
+	<content src="ch6-5.html"/>
+      </navPoint>
+      <navPoint id="ch6-6">
+	<navLabel>
+	  <text>Environment and Electricity</text>
+	</navLabel>
+	<content src="ch6-6.html"/>
+      </navPoint>
+      <navPoint id="ch6-7">
+	<navLabel>
+	  <text>The "Sub-Prime" and the Radar Problem</text>
+	</navLabel>
+	<content src="ch6-7.html"/>
+      </navPoint>
+      <navPoint id="ch6-8">
+	<navLabel>
+	  <text>Guidance and Navigation</text>
+	</navLabel>
+	<content src="ch6-8.html"/>
+      </navPoint>
+      <navPoint id="ch6-9">
+	<navLabel>
+	  <text>Mockup Reviews</text>
+	</navLabel>
+	<content src="ch6-9.html"/>
+      </navPoint>
+      <navPoint id="ch6-10">
+	<navLabel>
+	  <text>The Lunar Module and the Apollo Program</text>
+	</navLabel>
+	<content src="ch6-10.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ch7">
+      <navLabel>
+	<text>7. Searching for Order</text>
+      </navLabel>
+      <content src="ch7-1.html"/>
+      <navPoint id="ch7-1">
+	<navLabel>
+	  <text>1965</text>
+	</navLabel>
+	<content src="ch7-1.html"/>
+      </navPoint>
+      <navPoint id="ch7-2">
+	<navLabel>
+	  <text>Program Direction and the Command Module</text>
+	</navLabel>
+	<content src="ch7-2.html"/>
+      </navPoint>
+      <navPoint id="ch7-3">
+	<navLabel>
+	  <text>Lunar Module Refinement</text>
+	</navLabel>
+	<content src="ch7-3.html"/>
+      </navPoint>
+      <navPoint id="ch7-4">
+	<navLabel>
+	  <text>The LEM Test Program: A Pacing Item</text>
+	</navLabel>
+	<content src="ch7-4.html"/>
+      </navPoint>
+      <navPoint id="ch7-5">
+	<navLabel>
+	  <text>The Manned Factor</text>
+	</navLabel>
+	<content src="ch7-5.html"/>
+      </navPoint>
+      <navPoint id="ch7-6">
+	<navLabel>
+	  <text>Portents for Operations</text>
+	</navLabel>
+	<content src="ch7-6.html"/>
+      </navPoint>
+      <navPoint id="ch7-7">
+	<navLabel>
+	  <text>The Course and the Future</text>
+	</navLabel>
+	<content src="ch7-7.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ch8">
+      <navLabel>
+	<text>8. Moving toward Operations</text>
+      </navLabel>
+      <content src="ch8-1.html"/>
+      <navPoint id="ch8-1">
+	<navLabel>
+	  <text>1966</text>
+	</navLabel>
+	<content src="ch8-1.html"/>
+      </navPoint>
+      <navPoint id="ch8-2">
+	<navLabel>
+	  <text>Qualifying Missions</text>
+	</navLabel>
+	<content src="ch8-2.html"/>
+      </navPoint>
+      <navPoint id="ch8-3">
+	<navLabel>
+	  <text>Troubles and Troubleshooters</text>
+	</navLabel>
+	<content src="ch8-3.html"/>
+      </navPoint>
+      <navPoint id="ch8-4">
+	<navLabel>
+	  <text>Lunar Module</text>
+	</navLabel>
+	<content src="ch8-4.html"/>
+      </navPoint>
+      <navPoint id="ch8-5">
+	<navLabel>
+	  <text>Plans and Progress in Space Flight</text>
+	</navLabel>
+	<content src="ch8-5.html"/>
+      </navPoint>
+      <navPoint id="ch8-6">
+	<navLabel>
+	  <text>The Astronauts and the Gemini Experience</text>
+	</navLabel>
+	<content src="ch8-6.html"/>
+      </navPoint>
+      <navPoint id="ch8-7">
+	<navLabel>
+	  <text>Preparations for the First Manned Apollo Mission</text>
+	</navLabel>
+	<content src="ch8-7.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ch9">
+      <navLabel>
+	<text>9. Tragedy and Recovery</text>
+      </navLabel>
+      <content src="ch9-1.html"/>
+      <navPoint id="ch9-1">
+	<navLabel>
+	  <text>1967</text>
+	</navLabel>
+	<content src="ch9-1.html"/>
+      </navPoint>
+      <navPoint id="ch9-2">
+	<navLabel>
+	  <text>Stalked by the Spectre</text>
+	</navLabel>
+	<content src="ch9-2.html"/>
+      </navPoint>
+      <navPoint id="ch9-3">
+	<navLabel>
+	  <text>The Investigation</text>
+	</navLabel>
+	<content src="ch9-3.html"/>
+      </navPoint>
+      <navPoint id="ch9-4">
+	<navLabel>
+	  <text>The Slow Recovery</text>
+	</navLabel>
+	<content src="ch9-4.html"/>
+      </navPoint>
+      <navPoint id="ch9-5">
+	<navLabel>
+	  <text>Apollo 4 and Saturn V</text>
+	</navLabel>
+	<content src="ch9-5.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ch10">
+      <navLabel>
+	<text>10. Race with the Decade</text>
+      </navLabel>
+      <content src="ch10-1.html"/>
+      <navPoint id="ch10-1">
+	<navLabel>
+	  <text>1968: First Half</text>
+	</navLabel>
+	<content src="ch10-1.html"/>
+      </navPoint>
+      <navPoint id="ch10-2">
+	<navLabel>
+	  <text>Worries and Watchdogs</text>
+	</navLabel>
+	<content src="ch10-2.html"/>
+      </navPoint>
+      <navPoint id="ch10-3">
+	<navLabel>
+	  <text>Apollo 5: The Lunar Module's Debut</text>
+	</navLabel>
+	<content src="ch10-3.html"/>
+      </navPoint>
+      <navPoint id="ch10-4">
+	<navLabel>
+	  <text>The LM: Some Questions, Some Answers</text>
+	</navLabel>
+	<content src="ch10-4.html"/>
+      </navPoint>
+      <navPoint id="ch10-5">
+	<navLabel>
+	  <text>Apollo 6: Saturn V's Shaky Dress Rehearsal</text>
+	</navLabel>
+	<content src="ch10-5.html"/>
+      </navPoint>
+      <navPoint id="ch10-6">
+	<navLabel>
+	  <text>Pogo and Other Problems</text>
+	</navLabel>
+	<content src="ch10-6.html"/>
+      </navPoint>
+      <navPoint id="ch10-7">
+	<navLabel>
+	  <text>The Outlook</text>
+	</navLabel>
+	<content src="ch10-7.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ch11">
+      <navLabel>
+	<text>11. Tastes of Triumph</text>
+      </navLabel>
+      <content src="ch11-1.html"/>
+      <navPoint id="ch11-1">
+	<navLabel>
+	  <text>1968: Second Half</text>
+	</navLabel>
+	<content src="ch11-1.html"/>
+      </navPoint>
+      <navPoint id="ch11-2">
+	<navLabel>
+	  <text>Proposal for a Lunar Orbit Mission</text>
+	</navLabel>
+	<content src="ch11-2.html"/>
+      </navPoint>
+      <navPoint id="ch11-3">
+	<navLabel>
+	  <text>Selecting and Training Crews</text>
+	</navLabel>
+	<content src="ch11-3.html"/>
+      </navPoint>
+      <navPoint id="ch11-4">
+	<navLabel>
+	  <text>Apollo 7: The Magnificent Flying Machine</text>
+	</navLabel>
+	<content src="ch11-4.html"/>
+      </navPoint>
+      <navPoint id="ch11-5">
+	<navLabel>
+	  <text>The Apollo 8 Decision</text>
+	</navLabel>
+	<content src="ch11-5.html"/>
+      </navPoint>
+      <navPoint id="ch11-6">
+	<navLabel>
+	  <text>Apollo 8: The First Lunar Voyage</text>
+	</navLabel>
+	<content src="ch11-6.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ch12">
+      <navLabel>
+	<text>12. The Trailblazers</text>
+      </navLabel>
+      <content src="ch12-1.html"/>
+      <navPoint id="ch12-1">
+	<navLabel>
+	  <text>1969: First Half</text>
+	</navLabel>
+	<content src="ch12-1.html"/>
+      </navPoint>
+      <navPoint id="ch12-2">
+	<navLabel>
+	  <text>Schedules and Lingering Worries</text>
+	</navLabel>
+	<content src="ch12-2.html"/>
+      </navPoint>
+      <navPoint id="ch12-3">
+	<navLabel>
+	  <text>A Double Workload</text>
+	</navLabel>
+	<content src="ch12-3.html"/>
+      </navPoint>
+      <navPoint id="ch12-4">
+	<navLabel>
+	  <text>The Mission and the Men</text>
+	</navLabel>
+	<content src="ch12-4.html"/>
+      </navPoint>
+      <navPoint id="ch12-5">
+	<navLabel>
+	  <text>Apollo 9: Earth Orbital trials</text>
+	</navLabel>
+	<content src="ch12-5.html"/>
+      </navPoint>
+      <navPoint id="ch12-6">
+	<navLabel>
+	  <text>Setting the Stage</text>
+	</navLabel>
+	<content src="ch12-6.html"/>
+      </navPoint>
+      <navPoint id="ch12-7">
+	<navLabel>
+	  <text>Apollo 10: The Dress Rehearsal</text>
+	</navLabel>
+	<content src="ch12-7.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ch13">
+      <navLabel>
+	<text>13. To Land on the Moon</text>
+      </navLabel>
+      <content src="ch13-1.html"/>
+      <navPoint id="ch13-1">
+	<navLabel>
+	  <text>1960-July 1969</text>
+	</navLabel>
+	<content src="ch13-1.html"/>
+      </navPoint>
+      <navPoint id="ch13-2">
+	<navLabel>
+	  <text>Some Special Considerations</text>
+	</navLabel>
+	<content src="ch13-2.html"/>
+      </navPoint>
+      <navPoint id="ch13-3">
+	<navLabel>
+	  <text>Training Mankind's Representatives</text>
+	</navLabel>
+	<content src="ch13-3.html"/>
+      </navPoint>
+      <navPoint id="ch13-4">
+	<navLabel>
+	  <text>Affairs for the Public</text>
+	</navLabel>
+	<content src="ch13-4.html"/>
+      </navPoint>
+      <navPoint id="ch13-5">
+	<navLabel>
+	  <text>Down to the Wire</text>
+	</navLabel>
+	<content src="ch13-5.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ch14">
+      <navLabel>
+	<text>14. Trip to Tranquility</text>
+      </navLabel>
+      <content src="ch14-1.html"/>
+      <navPoint id="ch14-1">
+	<navLabel>
+	  <text>1969: July</text>
+	</navLabel>
+	<content src="ch14-1.html"/>
+      </navPoint>
+      <navPoint id="ch14-2">
+	<navLabel>
+	  <text>The Outward Voyage</text>
+	</navLabel>
+	<content src="ch14-2.html"/>
+      </navPoint>
+      <navPoint id="ch14-3">
+	<navLabel>
+	  <text>In Lunar Orbit</text>
+	</navLabel>
+	<content src="ch14-3.html"/>
+      </navPoint>
+      <navPoint id="ch14-4">
+	<navLabel>
+	  <text>The First Landing</text>
+	</navLabel>
+	<content src="ch14-4.html"/>
+      </navPoint>
+      <navPoint id="ch14-5">
+	<navLabel>
+	  <text>On the Surface</text>
+	</navLabel>
+	<content src="ch14-5.html"/>
+      </navPoint>
+      <navPoint id="ch14-6">
+	<navLabel>
+	  <text>Return from Tranquility</text>
+	</navLabel>
+	<content src="ch14-6.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="epilog">
+      <navLabel>
+	<text>Epilogue</text>
+      </navLabel>
+      <content src="epilog.html"/>
+    </navPoint>
+    <navPoint id="app-a">
+      <navLabel>
+	<text>Appendix A: Manned Spacecraft Center Site Selection Prodedure</text>
+      </navLabel>
+      <content src="app-a.html"/>
+    </navPoint>
+    <navPoint id="app-b">
+      <navLabel>
+	<text>Appendix B: Astronaut Assignments</text>
+      </navLabel>
+      <content src="app-b.html"/>
+    </navPoint>
+    <navPoint id="app-c">
+      <navLabel>
+	<text>Appendix C: Apollo Flight Program</text>
+      </navLabel>
+      <content src="app-c.html"/>
+    </navPoint>
+    <navPoint id="app-d">
+      <navLabel>
+	<text>Appendix D: Apollo 11 Experiments</text>
+      </navLabel>
+      <content src="app-d.html"/>
+    </navPoint>
+    <navPoint id="app-e">
+      <navLabel>
+	<text>Appendix E: Apollo 11 Lunar Samples</text>
+      </navLabel>
+      <content src="app-e.html"/>
+    </navPoint>
+    <navPoint id="app-f">
+      <navLabel>
+	<text>Appendix F: Major Spacecraft Component Manufacturers</text>
+      </navLabel>
+      <content src="app-f.html"/>
+    </navPoint>
+    <navPoint id="app-g">
+      <navLabel>
+	<text>Appendix G: Apollo Program Responsibilities of the Manned Space Centers</text>
+      </navLabel>
+      <content src="app-g.html"/>
+    </navPoint>
+    <navPoint id="app-h">
+      <navLabel>
+	<text>Appendix H: Funding - As of 30 June 1969</text>
+      </navLabel>
+      <content src="app-h.html"/>
+    </navPoint>
   </navMap>
 </ncx>
