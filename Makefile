@@ -1,5 +1,6 @@
 default: chariotsforapollo.epub
 
+.PHONY: clean
 clean:
 	git clean -fX
 
@@ -18,3 +19,8 @@ OEBPS/%.html: %.html
 
 OEBPS/%.jpg: %.jpg
 	cp $< $@
+
+.PHONY: validate
+validate: chariotsforapollo.epub
+	echo $<
+	java -jar epubcheck-3.0/epubcheck-3.0.jar $<
