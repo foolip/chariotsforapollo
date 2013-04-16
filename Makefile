@@ -29,5 +29,4 @@ OEBPS/images/%: images/%
 
 .PHONY: validate
 validate: chariotsforapollo.epub
-	echo $<
 	java -jar epubcheck-3.0/epubcheck-3.0.jar $<
