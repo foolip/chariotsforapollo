@@ -24,7 +24,7 @@ def tags(root, tagName=None):
 
 # return the first element matching tagName
 def first(tagName):
-    return next(tags(doc, tagName))
+    return next(tags(doc, tagName), None)
 
 # remove an element from its parent
 def remove(node):
@@ -163,9 +163,20 @@ for elm in tags(doc):
                      'ol',
                      'p',
                      'pre', # FIXME
+                     'style',
                      'sup',
                      'title',
                      'ul'])
     assert elm.tagName in whitelist
+
+# add the stylesheet
+link = doc.createElement('link')
+link.setAttribute('rel', 'stylesheet')
+link.setAttribute('href', 'stylesheet.css')
+style = first('style')
+if style != None:
+    style.parentNode.insertBefore(link, style)
+else:
+    first('head').appendChild(link)
 
 dst.write(html.toxml('utf-8'))

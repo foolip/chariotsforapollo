@@ -11,6 +11,7 @@
   </metadata>
   <manifest>
     <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+    <item href="stylesheet.css" id="css" media-type="text/css"/>
     <item href="cover.jpg" id="cover-image" media-type="image/jpeg"/>
     <item href="cover.html" id="cover" media-type="application/xhtml+xml"/>
     <item href="foreword.html" id="foreword" media-type="application/xhtml+xml"/>
