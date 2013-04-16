@@ -17,7 +17,13 @@ chariotsforapollo.epub: $(GIT_FILES) $(OEBPS_FILES)
 OEBPS/%.html: %.html
 	PYTHONPATH=html5lib-python python sanitize.py $< $@
 
+OEBPS/%.gif: %.gif
+	cp $< $@
+
 OEBPS/%.jpg: %.jpg
+	cp $< $@
+
+OEBPS/images/%: images/%
 	cp $< $@
 
 .PHONY: validate
