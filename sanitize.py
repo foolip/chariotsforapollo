@@ -76,6 +76,38 @@ for elm in tags(doc):
         assert elm.tagName in ['p']
         remove(elm)
 
+# group figures and their captions
+for fig in tags(doc, 'p'):
+    def nextElement(ref):
+        n = ref.nextSibling
+        while n and n.nodeType != n.ELEMENT_NODE:
+            n = n.nextSibling
+        return n
+
+    if fig.hasAttribute('align') and fig.getAttribute('align') == 'center':
+        imgs = list(tags(fig, 'img'))
+        if len(imgs) > 0:
+            caption = nextElement(fig)
+            if caption.tagName == 'p':
+                hr = nextElement(caption)
+                if hr.tagName == 'hr':
+                    fig.tagName = 'div'
+                    fig.removeAttribute('align')
+                    fig.setAttribute('class', 'figure')
+                    fig.appendChild(caption)
+                    caption.setAttribute('class', 'caption')
+                    remove(hr)
+
+# move <a name="foo"> anchors to parent <p id="foo">
+for a in tags(doc, 'a'):
+    if a.hasAttribute('name') and a.parentNode.tagName == 'p' and \
+            not a.parentNode.hasAttribute('id'):
+        p = a.parentNode
+        p.setAttribute('id', a.getAttribute('name'))
+        while a.firstChild:
+            p.insertBefore(a.firstChild, a)
+        remove(a)
+
 # prettify whitespace
 doc.normalize()
 for p in tags(doc, 'p'):
