@@ -110,14 +110,14 @@ for p in tags(doc, 'p'):
 for center in tags(doc, 'center'):
     figurize(center)
 
-# move <a name="foo"> anchors to parent <p id="foo">
+# move <a name="foo"> anchors to parent <? id="foo">
 for a in tags(doc, 'a'):
-    if a.hasAttribute('name') and a.parentNode.tagName == 'p' and \
-            not a.parentNode.hasAttribute('id'):
-        p = a.parentNode
-        p.setAttribute('id', a.getAttribute('name'))
+    whitelist = set(['p', 'h3'])
+    if a.hasAttribute('name') and not a.parentNode.hasAttribute('id') and \
+            a.parentNode.tagName in whitelist:
+        a.parentNode.setAttribute('id', a.getAttribute('name'))
         while a.firstChild:
-            p.insertBefore(a.firstChild, a)
+            a.parentNode.insertBefore(a.firstChild, a)
         remove(a)
 
 # prettify whitespace
