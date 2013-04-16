@@ -77,26 +77,38 @@ for elm in tags(doc):
         remove(elm)
 
 # group figures and their captions
-for fig in tags(doc, 'p'):
+def figurize(fig):
     def nextElement(ref):
         n = ref.nextSibling
         while n and n.nodeType != n.ELEMENT_NODE:
+            assert isempty(n)
             n = n.nextSibling
         return n
+    imgs = list(tags(fig, 'img'))
+    if len(imgs) > 0:
+        caption = nextElement(fig)
+        if caption.tagName == 'p':
+            hr = nextElement(caption)
+        else:
+            hr = caption
+            caption = None
+        if hr.tagName == 'hr':
+            fig.tagName = 'div'
+            fig.setAttribute('class', 'figure')
+            if caption != None:
+                caption.setAttribute('class', 'caption')
+                fig.appendChild(caption)
+            remove(hr)
+            return True
+    return False
 
-    if fig.hasAttribute('align') and fig.getAttribute('align') == 'center':
-        imgs = list(tags(fig, 'img'))
-        if len(imgs) > 0:
-            caption = nextElement(fig)
-            if caption.tagName == 'p':
-                hr = nextElement(caption)
-                if hr.tagName == 'hr':
-                    fig.tagName = 'div'
-                    fig.removeAttribute('align')
-                    fig.setAttribute('class', 'figure')
-                    fig.appendChild(caption)
-                    caption.setAttribute('class', 'caption')
-                    remove(hr)
+for p in tags(doc, 'p'):
+    if p.hasAttribute('align') and p.getAttribute('align') == 'center':
+        if figurize(p):
+            p.removeAttribute('align')
+
+for center in tags(doc, 'center'):
+    figurize(center)
 
 # move <a name="foo"> anchors to parent <p id="foo">
 for a in tags(doc, 'a'):
