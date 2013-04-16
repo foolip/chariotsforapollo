@@ -11,6 +11,7 @@ GIT_FILES := $(shell git ls-tree -r --name-only HEAD)
 OEBPS_FILES := $(addprefix OEBPS/, $(shell grep '<item href' OEBPS/content.opf | cut -d '"' -f 2))
 
 chariotsforapollo.epub: $(GIT_FILES) $(OEBPS_FILES)
+	rm -f $@
 	zip -X $@ mimetype
 	zip -rg $@ META-INF OEBPS -x \*~ \*.gitignore
 
