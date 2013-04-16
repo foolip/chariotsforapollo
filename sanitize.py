@@ -134,4 +134,38 @@ for n in walk(doc):
     if n.nodeType == n.TEXT_NODE:
         n.nodeValue = re.sub(r'\s*\n\s*', '\n', n.nodeValue)
 
+# ensure that only whitelisted tags are in the output
+for elm in tags(doc):
+    tagmap = { 'cite': 'i',
+               'em': 'i' }
+    if elm.tagName in tagmap:
+        elm.tagName = tagmap[elm.tagName]
+    whitelist = set(['a',
+                     'b', # FIXME
+                     'blockquote',
+                     'body',
+                     'br',
+                     'dd',
+                     'div',
+                     'dl',
+                     'dt',
+                     'h1',
+                     'h2',
+                     'h3', # FIXME
+                     'h4', # FIXME
+                     'head',
+                     'hr',
+                     'html',
+                     'i',
+                     'img',
+                     'li',
+                     'meta',
+                     'ol',
+                     'p',
+                     'pre', # FIXME
+                     'sup',
+                     'title',
+                     'ul'])
+    assert elm.tagName in whitelist
+
 dst.write(html.toxml('utf-8'))
