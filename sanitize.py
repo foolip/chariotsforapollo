@@ -130,7 +130,7 @@ for a in tags(doc, 'a'):
 
 # add [] around note links
 for a in tags(doc, 'a'):
-    href = a.getAttribute('href').lower()
+    href = a.getAttribute('href')
     if href.startswith('#explanation') or href.startswith('#source'):
         text = textContent(a)
         remove(a.firstChild)
