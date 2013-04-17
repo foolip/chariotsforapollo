@@ -137,6 +137,15 @@ for a in tags(doc, 'a'):
         assert a.firstChild == None
         a.appendChild(doc.createTextNode('[%s]' % text))
 
+# remove useless <b>
+for b in tags(doc, 'b'):
+    if re.match(r'^\W*$', textContent(b)):
+        b.parentNode.replaceChild(b.firstChild, b)
+        assert b.firstChild == None
+    else:
+        # only numbered notes should remain
+        assert textContent(b).isdigit() and b.nextSibling.nodeValue == '.'
+
 # prettify whitespace
 doc.normalize()
 for p in tags(doc, 'p'):
@@ -158,7 +167,7 @@ for elm in tags(doc):
     if elm.tagName in tagmap:
         elm.tagName = tagmap[elm.tagName]
     whitelist = {'a': ['href'],
-                 'b': [], # FIXME
+                 'b': [],
                  'blockquote': [],
                  'body': ['style'],
                  'br': [],
@@ -188,11 +197,7 @@ for elm in tags(doc):
     attrs = elm.attributes
     for i in range(attrs.length):
         attrName = attrs.item(i).name
-        try:
-            assert attrName in whitelist[elm.tagName]
-        except:
-            print '%s.%s' % (elm.tagName, attrName)
-            assert False
+        assert attrName in whitelist[elm.tagName]
 
 # add the stylesheet
 link = doc.createElement('link')
