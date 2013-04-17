@@ -8,8 +8,8 @@ maxw="$3"
 maxh="$4"
 
 identify -format "%w %h" "$src" | while read w h; do
-    argf="${src/%jpg/args}"
-    crop="${src/%jpg/crop}"
+    argf="${src%.*}.args"
+    crop="${src%.*}.crop"
     if [ -e "$argf" ]; then
 	read args < "$argf"
     elif [ -e "$crop" ]; then
@@ -18,7 +18,7 @@ identify -format "%w %h" "$src" | while read w h; do
     fi
     if [ -n "$args" -o $w -gt $maxw -o $h -gt $maxh ]; then
 	convert "$src" $args +repage -resize "${maxw}x${maxh}>" \
-	    -strip -quality 90 "$dst"
+	    -strip -quality 95 "$dst"
     else
 	cp "$src" "$dst"
     fi
