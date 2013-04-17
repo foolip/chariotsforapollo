@@ -41,6 +41,11 @@ def isempty(node):
     else:
         return False
 
+# equivalent to DOM's textContent
+def textContent(node):
+    return ''.join([n.nodeValue for n in walk(node)
+                    if n.nodeType == n.TEXT_NODE])
+
 html = doc.documentElement
 body = first('body')
 
@@ -122,6 +127,15 @@ for a in tags(doc, 'a'):
         while a.firstChild:
             a.parentNode.insertBefore(a.firstChild, a)
         remove(a)
+
+# add [] around note links
+for a in tags(doc, 'a'):
+    href = a.getAttribute('href').lower()
+    if href.startswith('#explanation') or href.startswith('#source'):
+        text = textContent(a)
+        remove(a.firstChild)
+        assert a.firstChild == None
+        a.appendChild(doc.createTextNode('[%s]' % text))
 
 # prettify whitespace
 doc.normalize()
