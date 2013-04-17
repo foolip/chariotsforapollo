@@ -4,7 +4,6 @@ import sys
 import xml.dom
 
 src = open(sys.argv[1], 'r')
-dst = open(sys.argv[2], 'w+')
 
 doc = html5lib.parse(src, treebuilder='dom')
 
@@ -178,7 +177,7 @@ for elm in tags(doc):
         try:
             assert attrName in whitelist[elm.tagName]
         except:
-            print "%s.%s" % (elm.tagName, attrName)
+            print '%s.%s' % (elm.tagName, attrName)
             assert False
 
 # add the stylesheet
@@ -191,4 +190,5 @@ if style != None:
 else:
     first('head').appendChild(link)
 
+dst = open(sys.argv[2], 'w+')
 dst.write(html.toxml('utf-8'))
