@@ -144,34 +144,42 @@ for elm in tags(doc):
                'em': 'i' }
     if elm.tagName in tagmap:
         elm.tagName = tagmap[elm.tagName]
-    whitelist = set(['a',
-                     'b', # FIXME
-                     'blockquote',
-                     'body',
-                     'br',
-                     'dd',
-                     'div',
-                     'dl',
-                     'dt',
-                     'h1',
-                     'h2',
-                     'h3', # FIXME
-                     'h4', # FIXME
-                     'head',
-                     'hr',
-                     'html',
-                     'i',
-                     'img',
-                     'li',
-                     'meta',
-                     'ol',
-                     'p',
-                     'pre', # FIXME
-                     'style',
-                     'sup',
-                     'title',
-                     'ul'])
+    whitelist = {'a': ['href'],
+                 'b': [], # FIXME
+                 'blockquote': [],
+                 'body': ['style'],
+                 'br': [],
+                 'dd': [],
+                 'div': ['class'],
+                 'dl': [],
+                 'dt': [],
+                 'h1': [],
+                 'h2': [],
+                 'h3': ['id'], # FIXME
+                 'h4': [], # FIXME
+                 'head': [],
+                 'hr': [],
+                 'html': ['xmlns'],
+                 'i': [],
+                 'img': ['alt', 'src'],
+                 'li': [],
+                 'meta': ['content', 'http-equiv'],
+                 'ol': [],
+                 'p': ['class', 'id', 'style'],
+                 'pre': [], # FIXME
+                 'style': [],
+                 'sup': [],
+                 'title': [],
+                 'ul': []}
     assert elm.tagName in whitelist
+    attrs = elm.attributes
+    for i in range(attrs.length):
+        attrName = attrs.item(i).name
+        try:
+            assert attrName in whitelist[elm.tagName]
+        except:
+            print "%s.%s" % (elm.tagName, attrName)
+            assert False
 
 # add the stylesheet
 link = doc.createElement('link')
