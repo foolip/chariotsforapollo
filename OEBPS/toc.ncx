@@ -699,7 +699,7 @@
     </navPoint>
     <navPoint id="app-a">
       <navLabel>
-	<text>Appendix A: Manned Spacecraft Center Site Selection Prodedure</text>
+	<text>Appendix A: Manned Spacecraft Center Site Selection Procedure</text>
       </navLabel>
       <content src="app-a.html"/>
     </navPoint>
