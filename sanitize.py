@@ -49,9 +49,13 @@ body = first('body')
 html.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml')
 first('meta').setAttribute('content', 'application/xhtml+xml; charset=utf-8')
 
-# remove obsolete attributes
+# remove useless attributes
 if body.hasAttribute('bgcolor'):
     body.removeAttribute('bgcolor')
+for img in tags(doc, 'img'):
+    for attr in ['width', 'height']:
+        if img.hasAttribute(attr):
+            img.removeAttribute(attr)
 
 # remove comments
 for n in walk(doc):
