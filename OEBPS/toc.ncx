@@ -116,7 +116,7 @@
       </navPoint>
       <navPoint id="ch2-4">
 	<navLabel>
-	  <text>Astronavigation - The First Apollo Contract</text>
+	  <text>Astronavigation—The First Apollo Contract</text>
 	</navLabel>
 	<content src="ch2-4.html"/>
       </navPoint>
@@ -260,7 +260,7 @@
       <content src="ch5-1.html"/>
       <navPoint id="ch5-1">
 	<navLabel>
-	  <text>1963-1964</text>
+	  <text>1963–1964</text>
 	</navLabel>
 	<content src="ch5-1.html"/>
       </navPoint>
@@ -284,7 +284,7 @@
       <content src="ch6-1.html"/>
       <navPoint id="ch6-1">
 	<navLabel>
-	  <text>1963-1964</text>
+	  <text>1963–1964</text>
 	</navLabel>
 	<content src="ch6-1.html"/>
       </navPoint>
@@ -620,7 +620,7 @@
       <content src="ch13-1.html"/>
       <navPoint id="ch13-1">
 	<navLabel>
-	  <text>1960-July 1969</text>
+	  <text>1960–July 1969</text>
 	</navLabel>
 	<content src="ch13-1.html"/>
       </navPoint>
@@ -741,7 +741,7 @@
     </navPoint>
     <navPoint id="app-h">
       <navLabel>
-	<text>Appendix H: Funding - As of 30 June 1969</text>
+	<text>Appendix H: Funding—As of 30 June 1969</text>
       </navLabel>
       <content src="app-h.html"/>
     </navPoint>
