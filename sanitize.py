@@ -21,6 +21,10 @@ def tags(root, tagName=None):
     return (n for n in walk(root) if n.nodeType == n.ELEMENT_NODE and
             (tagName == None or n.tagName == tagName))
 
+# yield all the text node childen of root in tree order
+def textnodes(root):
+    return (n for n in walk(root) if n.nodeType == n.TEXT_NODE)
+
 # return the first element matching tagName
 def first(tagName):
     return next(tags(doc, tagName), None)
@@ -43,8 +47,7 @@ def isempty(node):
 
 # equivalent to DOM's textContent
 def textContent(node):
-    return ''.join([n.nodeValue for n in walk(node)
-                    if n.nodeType == n.TEXT_NODE])
+    return ''.join([n.nodeValue for n in textnodes(node)])
 
 html = doc.documentElement
 body = first('body')
@@ -156,9 +159,18 @@ for p in tags(doc, 'p'):
     if p.lastChild.nodeType == p.TEXT_NODE:
         p.lastChild.nodeValue = p.lastChild.nodeValue.rstrip()
 doc.normalize()
-for n in walk(doc):
-    if n.nodeType == n.TEXT_NODE:
-        n.nodeValue = re.sub(r'\s*\n\s*', '\n', n.nodeValue)
+for n in textnodes(doc):
+    n.nodeValue = re.sub(r'\s*\n\s*', '\n', n.nodeValue)
+
+# replace ' - ' with em dash
+for n in textnodes(body):
+    n.nodeValue = re.sub(r'\s+-\s+', u'\u2014', n.nodeValue, flags=re.M)
+
+# assert that the text content is to our liking
+text = textContent(body)
+assert re.search(r'\s-\s', text, flags=re.M) == None
+assert re.search(u'\\s\u2014', text, flags=re.M) == None
+assert re.search(u'\u2014\\s', text, flags=re.M) == None
 
 # ensure that only whitelisted tags are in the output
 for elm in tags(doc):
