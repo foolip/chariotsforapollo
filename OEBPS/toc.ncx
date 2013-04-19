@@ -596,7 +596,7 @@
       </navPoint>
       <navPoint id="ch12-5">
 	<navLabel>
-	  <text>Apollo 9: Earth Orbital trials</text>
+	  <text>Apollo 9: Earth Orbital Trials</text>
 	</navLabel>
 	<content src="ch12-5.html"/>
       </navPoint>
