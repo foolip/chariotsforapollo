@@ -41,7 +41,7 @@
       <navLabel>
 	<text>1. Concept to Challenge</text>
       </navLabel>
-      <content src="ch1-1.html"/>
+      <content src="ch1.html"/>
       <navPoint id="ch1-1">
 	<navLabel>
 	  <text>1957 to Mid-1961</text>
@@ -101,7 +101,7 @@
       <navLabel>
 	<text>2. Project Planning and Contracting</text>
       </navLabel>
-      <content src="ch2-1.html"/>
+      <content src="ch2.html"/>
       <navPoint id="ch2-1">
 	<navLabel>
 	  <text>May through December 1961</text>
@@ -161,7 +161,7 @@
       <navLabel>
 	<text>3. Contending Modes</text>
       </navLabel>
-      <content src="ch3-1.html"/>
+      <content src="ch3.html"/>
       <navPoint id="ch3-1">
 	<navLabel>
 	  <text>1959 to Mid-1962</text>
@@ -209,7 +209,7 @@
       <navLabel>
 	<text>4. Matching Modules and Missions</text>
       </navLabel>
-      <content src="ch4-1.html"/>
+      <content src="ch4.html"/>
       <navPoint id="ch4-1">
 	<navLabel>
 	  <text>1962</text>
@@ -263,7 +263,7 @@
       <navLabel>
 	<text>5. Command Modules and Program Changes</text>
       </navLabel>
-      <content src="ch5-1.html"/>
+      <content src="ch5.html"/>
       <navPoint id="ch5-1">
 	<navLabel>
 	  <text>1963–1964</text>
@@ -287,7 +287,7 @@
       <navLabel>
 	<text>6. Lunar Module</text>
       </navLabel>
-      <content src="ch6-1.html"/>
+      <content src="ch6.html"/>
       <navPoint id="ch6-1">
 	<navLabel>
 	  <text>1963–1964</text>
@@ -353,7 +353,7 @@
       <navLabel>
 	<text>7. Searching for Order</text>
       </navLabel>
-      <content src="ch7-1.html"/>
+      <content src="ch7.html"/>
       <navPoint id="ch7-1">
 	<navLabel>
 	  <text>1965</text>
@@ -401,7 +401,7 @@
       <navLabel>
 	<text>8. Moving toward Operations</text>
       </navLabel>
-      <content src="ch8-1.html"/>
+      <content src="ch8.html"/>
       <navPoint id="ch8-1">
 	<navLabel>
 	  <text>1966</text>
@@ -449,7 +449,7 @@
       <navLabel>
 	<text>9. Tragedy and Recovery</text>
       </navLabel>
-      <content src="ch9-1.html"/>
+      <content src="ch9.html"/>
       <navPoint id="ch9-1">
 	<navLabel>
 	  <text>1967</text>
@@ -485,7 +485,7 @@
       <navLabel>
 	<text>10. Race with the Decade</text>
       </navLabel>
-      <content src="ch10-1.html"/>
+      <content src="ch10.html"/>
       <navPoint id="ch10-1">
 	<navLabel>
 	  <text>1968: First Half</text>
@@ -533,7 +533,7 @@
       <navLabel>
 	<text>11. Tastes of Triumph</text>
       </navLabel>
-      <content src="ch11-1.html"/>
+      <content src="ch11.html"/>
       <navPoint id="ch11-1">
 	<navLabel>
 	  <text>1968: Second Half</text>
@@ -575,7 +575,7 @@
       <navLabel>
 	<text>12. The Trailblazers</text>
       </navLabel>
-      <content src="ch12-1.html"/>
+      <content src="ch12.html"/>
       <navPoint id="ch12-1">
 	<navLabel>
 	  <text>1969: First Half</text>
@@ -623,7 +623,7 @@
       <navLabel>
 	<text>13. To Land on the Moon</text>
       </navLabel>
-      <content src="ch13-1.html"/>
+      <content src="ch13.html"/>
       <navPoint id="ch13-1">
 	<navLabel>
 	  <text>1960–July 1969</text>
@@ -659,7 +659,7 @@
       <navLabel>
 	<text>14. Trip to Tranquility</text>
       </navLabel>
-      <content src="ch14-1.html"/>
+      <content src="ch14.html"/>
       <navPoint id="ch14-1">
 	<navLabel>
 	  <text>1969: July</text>
