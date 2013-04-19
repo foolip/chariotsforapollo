@@ -19,6 +19,12 @@
       </navLabel>
       <content src="cover.html"/>
     </navPoint>
+    <navPoint id="contents">
+      <navLabel>
+        <text>Contents</text>
+      </navLabel>
+      <content src="contents.html"/>
+    </navPoint>
     <navPoint id="foreword">
       <navLabel>
         <text>Foreword</text>

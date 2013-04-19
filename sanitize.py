@@ -201,7 +201,7 @@ for elm in tags(doc):
                  'ol': [],
                  'p': ['class', 'id', 'style'],
                  'pre': [], # FIXME
-                 'style': [],
+                 'style': ['type'],
                  'sup': [],
                  'title': [],
                  'ul': []}
