@@ -14,6 +14,8 @@
     <item href="stylesheet.css" id="css" media-type="text/css"/>
     <item href="cover.jpg" id="cover-image" media-type="image/jpeg"/>
     <item href="cover.html" id="cover" media-type="application/xhtml+xml"/>
+    <item href="nasa.gif" id="nasa" media-type="image/gif"/>
+    <item href="title.html" id="title" media-type="application/xhtml+xml"/>
     <item href="contents.html" id="contents" media-type="application/xhtml+xml"/>
     <item href="foreword.html" id="foreword" media-type="application/xhtml+xml"/>
     <item href="preface.html" id="preface" media-type="application/xhtml+xml"/>
@@ -302,6 +304,7 @@
   </manifest>
   <spine toc="ncx">
     <itemref idref="cover" linear="no"/>
+    <itemref idref="title"/>
     <itemref idref="contents"/>
     <itemref idref="foreword"/>
     <itemref idref="preface"/>

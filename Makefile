@@ -22,7 +22,7 @@ OEBPS/images/%: images/%
 	./resize.sh $< $@ 1000 1000
 
 OEBPS/%.gif: %.gif
-	cp $< $@
+	./resize.sh $< $@ 1000 1000
 
 OEBPS/%.jpg: %.jpg
 	cp $< $@
