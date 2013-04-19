@@ -61,7 +61,7 @@ if body.hasAttribute('bgcolor'):
     body.removeAttribute('bgcolor')
 for img in tags(doc, 'img'):
     for attr in ['width', 'height']:
-        if img.hasAttribute(attr):
+        if img.hasAttribute(attr) and not img.getAttribute(attr).endswith('%'):
             img.removeAttribute(attr)
 
 # remove comments
@@ -195,7 +195,7 @@ for elm in tags(doc):
                  'hr': [],
                  'html': ['xmlns'],
                  'i': [],
-                 'img': ['alt', 'src'],
+                 'img': ['alt', 'src', 'width'],
                  'li': [],
                  'meta': ['content', 'http-equiv'],
                  'ol': [],
