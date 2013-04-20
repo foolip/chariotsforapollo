@@ -243,6 +243,28 @@ for elm in tags(body):
 for n in textnodes(body):
     n.nodeValue = re.sub(r'\s+-\s+', mdash, n.nodeValue, flags=re.M)
 
+# replace '. . .' with ellipsis
+def ellipsify(m):
+    s = re.sub(r'\s+', ' ', m.group())
+    if s in ['.', '. ']:
+        return m.group()
+    before = m.string[m.start(0)-1] if m.start(0) > 0 else None
+    after = m.string[m.end(0)] if m.end(0) < len(m.string) else None
+    quotes = lsquo + rsquo + ldquo + rdquo
+    assert before is None or before.isalnum() or before in set(',;?])' + quotes)
+    assert after is None or after.isalnum() or after in set(',:?'+ mdash + quotes)
+    suffix = '' if (after is None or after in set(',:?' + mdash + rsquo + rdquo)) else ' '
+    if s.strip() == '. . .':
+        prefix = '' if (before is None or before in set(lsquo + ldquo)) else ' '
+        return prefix + hellip + suffix
+    elif s.rstrip() == '. . . .':
+        assert before.isalpha()
+        return '. ' + hellip + suffix
+    assert False
+
+for n in textnodes(body):
+    n.nodeValue = re.sub(r'[\s.]*[.][\s.]*', ellipsify, n.nodeValue, flags=re.M)
+
 # assert that the text content is to our liking
 text = textContent(body)
 assert re.search(r'\s-\s', text, flags=re.M) == None
