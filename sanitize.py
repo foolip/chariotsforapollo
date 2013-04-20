@@ -3,6 +3,13 @@ import re
 import sys
 import xml.dom
 
+mdash = u'\u2014'
+lsquo = u'\u2018'
+rsquo = u'\u2019'
+ldquo = u'\u201C'
+rdquo = u'\u201D'
+hellip = u'\u2026'
+
 src = open(sys.argv[1], 'r')
 
 doc = html5lib.parse(src, treebuilder='dom')
@@ -182,8 +189,8 @@ def quotify(elm):
             if this.isopen == 'yes':
                 this.isopen = 'maybe'
             return this.right
-    sq = State(u'\u2018', u'\u2019') # single quote
-    dq = State(u'\u201C', u'\u201D') # double quote
+    sq = State(lsquo, rsquo)
+    dq = State(ldquo, rdquo)
     def replace(m):
         q = sq if m.group(0) == "'" else dq
         before = m.string[m.start(0)-1] if m.start(0) > 0 else ' '
@@ -193,7 +200,7 @@ def quotify(elm):
         if q == sq:
             if before.isalnum() and after.isalpha():
                 # moon's or similar
-                return sq.right
+                return rsquo
             if before in 'sz' and after.isspace():
                 # engineers' or similar
                 return sq.ambclose()
@@ -234,13 +241,13 @@ for elm in tags(body):
 
 # replace ' - ' with em dash
 for n in textnodes(body):
-    n.nodeValue = re.sub(r'\s+-\s+', u'\u2014', n.nodeValue, flags=re.M)
+    n.nodeValue = re.sub(r'\s+-\s+', mdash, n.nodeValue, flags=re.M)
 
 # assert that the text content is to our liking
 text = textContent(body)
 assert re.search(r'\s-\s', text, flags=re.M) == None
-assert re.search(u'\\s\u2014', text, flags=re.M) == None
-assert re.search(u'\u2014\\s', text, flags=re.M) == None
+assert re.search(r'\s'+mdash, text, flags=re.M) == None
+assert re.search(mdash+r'\s', text, flags=re.M) == None
 assert re.search(r'[\'"]', text) == None
 
 # ensure that only whitelisted tags are in the output
