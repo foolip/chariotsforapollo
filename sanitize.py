@@ -162,6 +162,76 @@ doc.normalize()
 for n in textnodes(doc):
     n.nodeValue = re.sub(r'\s*\n\s*', '\n', n.nodeValue)
 
+# replace ' and " with appropriate left/right single/double quotes
+def quotify(elm):
+    class State:
+        def __init__(this, left, right):
+            this.isopen = 'no'
+            this.left = left
+            this.right = right
+        def open(this):
+            assert this.isopen in ['no', 'maybe']
+            this.isopen = 'yes'
+            return this.left
+        def close(this):
+            assert this.isopen in ['yes', 'maybe']
+            this.isopen = 'no'
+            return this.right
+        def ambclose(this):
+            assert this.isopen in ['yes', 'no', 'maybe']
+            if this.isopen == 'yes':
+                this.isopen = 'maybe'
+            return this.right
+    sq = State(u'\u2018', u'\u2019') # single quote
+    dq = State(u'\u201C', u'\u201D') # double quote
+    def replace(m):
+        q = sq if m.group(0) == "'" else dq
+        before = m.string[m.start(0)-1] if m.start(0) > 0 else ' '
+        after = m.string[m.end(0)] if m.end(0) < len(m.string) else ' '
+        context = before + m.group(0) + after
+        # non-quoting and ambiguous usage of '
+        if q == sq:
+            if before.isalnum() and after.isalpha():
+                # moon's or similar
+                return sq.right
+            if before in 'sz' and after.isspace():
+                # engineers' or similar
+                return sq.ambclose()
+        # the simple cases
+        if before.isspace() and not after.isspace():
+            return q.open()
+        if not before.isspace() and after.isspace():
+            return q.close()
+        # document-specific cases
+        if context[0].isalnum():
+            context = 'a' + context[1:]
+        if context[2].isalnum():
+            context = context[:2] + 'a'
+        if context in ['"\'a']:
+            return sq.open()
+        if context in ['.\'"', ',\'"', "a',"]:
+            return sq.close()
+        if context in ['("a', '["a']:
+            return dq.open()
+        if context in ['\'"[', '."[', ',"[', 'a";', '?"[', 'a")', 'a":',
+                       'a"[', 'a"]', ')"]', ')":', ')";', '.")', '.";']:
+            return dq.close()
+        assert False
+    # join the text children to do the work ...
+    text = textContent(elm)
+    text = re.sub(r'[\'"]', replace, text)
+    assert sq.isopen in ['no', 'maybe']
+    assert dq.isopen in ['no', 'maybe']
+    # ... and then spread them out again
+    offset = 0
+    for n in textnodes(elm):
+        n.nodeValue = text[offset:offset+len(n.nodeValue)]
+        offset += len(n.nodeValue)
+
+for elm in tags(body):
+    if elm.tagName in ['dd', 'h2', 'li', 'p']:
+        quotify(elm)
+
 # replace ' - ' with em dash
 for n in textnodes(body):
     n.nodeValue = re.sub(r'\s+-\s+', u'\u2014', n.nodeValue, flags=re.M)
@@ -171,6 +241,7 @@ text = textContent(body)
 assert re.search(r'\s-\s', text, flags=re.M) == None
 assert re.search(u'\\s\u2014', text, flags=re.M) == None
 assert re.search(u'\u2014\\s', text, flags=re.M) == None
+assert re.search(r'[\'"]', text) == None
 
 # ensure that only whitelisted tags are in the output
 for elm in tags(doc):
