@@ -36,9 +36,38 @@ def textnodes(root):
 def first(tagName):
     return next(tags(doc, tagName), None)
 
+# insert elm after ref
+def insertBefore(elm, ref):
+    ref.parentNode.insertBefore(elm, ref)
+
+# insert elm after ref
+def insertAfter(elm, ref):
+    ref.parentNode.insertBefore(elm, ref.nextSibling)
+
+# pad element with char, if it's not already there
+def pad(elm, char):
+    prev = elm.previousSibling
+    if prev and prev.nodeType == elm.TEXT_NODE:
+        if prev.data[-1] != char:
+            prev.data = prev.data + char
+    else:
+        insertBefore(doc.createTextNode(char), elm)
+    next = elm.nextSibling
+    if next and next.nodeType == elm.TEXT_NODE:
+        if next.data[0] != char:
+            next.data = char + next.data
+    else:
+        insertAfter(doc.createTextNode(char), elm)
+
 # remove an element from its parent
 def remove(node):
     node.parentNode.removeChild(node)
+
+# replace an element with its children
+def replaceWithChildren(elm):
+    while elm.firstChild:
+        insertBefore(elm.firstChild, elm)
+    remove(elm)
 
 # true if node is whitespace or has only whitespace children
 def isempty(node):
@@ -87,11 +116,11 @@ for n in reversed(list(walk(body))):
     else:
         break
 
-# remove some empty elements
-for elm in tags(doc):
-    voidTags = set(['br', 'hr', 'img', 'meta'])
+# remove empty elements (reverse order to get them all)
+for elm in reversed(list(tags(doc))):
+    voidTags = set(['br', 'hr', 'img', 'meta', 'td'])
     if elm.tagName not in voidTags and isempty(elm):
-        assert elm.tagName in ['p']
+        assert elm.tagName in ['b', 'p']
         remove(elm)
 
 # group figures and their captions
@@ -134,9 +163,7 @@ for a in tags(doc, 'a'):
     if a.hasAttribute('name') and not a.parentNode.hasAttribute('id') and \
             a.parentNode.tagName in whitelist:
         a.parentNode.setAttribute('id', a.getAttribute('name'))
-        while a.firstChild:
-            a.parentNode.insertBefore(a.firstChild, a)
-        remove(a)
+        replaceWithChildren(a)
 
 # add [] around note links
 for a in tags(doc, 'a'):
@@ -156,15 +183,18 @@ for b in tags(doc, 'b'):
         # only numbered notes should remain
         assert textContent(b).isdigit() and b.nextSibling.data == '.'
 
-# prettify whitespace
+# prettify whitespace around elements with optional end tags
 doc.normalize()
-for p in tags(doc, 'p'):
-    for ref in [p, p.nextSibling]:
-        p.parentNode.insertBefore(doc.createTextNode('\n'), ref)
-    if p.firstChild.nodeType == p.TEXT_NODE:
-        p.firstChild.data = p.firstChild.data.lstrip()
-    if p.lastChild.nodeType == p.TEXT_NODE:
-        p.lastChild.data = p.lastChild.data.rstrip()
+for elm in tags(doc):
+    if elm.tagName not in ['dd', 'dt', 'li', 'p']:
+        continue
+    pad(elm, '\n')
+    if elm.firstChild.nodeType == elm.TEXT_NODE:
+        elm.firstChild.data = elm.firstChild.data.lstrip()
+    if elm.lastChild.nodeType == elm.TEXT_NODE:
+        elm.lastChild.data = elm.lastChild.data.rstrip()
+
+# remove trailing whitespace and collapse multiple newlines
 doc.normalize()
 for n in textnodes(doc):
     n.data = re.sub(r'\s*\n\s*', '\n', n.data)
@@ -192,7 +222,7 @@ def quotify(elm):
     sq = State(lsquo, rsquo)
     dq = State(ldquo, rdquo)
     def replace(m):
-        q = sq if m.group(0) == "'" else dq
+        q = dq if m.group(0) == '"' else sq
         before = m.string[m.start(0)-1] if m.start(0) > 0 else ' '
         after = m.string[m.end(0)] if m.end(0) < len(m.string) else ' '
         context = before + m.group(0) + after
@@ -226,7 +256,7 @@ def quotify(elm):
         assert False
     # join the text children to do the work ...
     text = textContent(elm)
-    text = re.sub(r'[\'"]', replace, text)
+    text = re.sub(r'[`\'"]', replace, text)
     assert sq.isopen in ['no', 'maybe']
     assert dq.isopen in ['no', 'maybe']
     # ... and then spread them out again
@@ -236,7 +266,7 @@ def quotify(elm):
         offset += len(n.data)
 
 for elm in tags(body):
-    if elm.tagName in ['dd', 'h2', 'li', 'p']:
+    if elm.tagName in ['dd', 'dt', 'h1', 'h2', 'h3', 'li', 'p', 'td', 'th']:
         quotify(elm)
 
 # replace ' - ' with em dash
@@ -283,12 +313,13 @@ for elm in tags(doc):
                  'blockquote': [],
                  'body': ['style'],
                  'br': [],
+                 'caption': [],
                  'dd': [],
-                 'div': ['class'],
-                 'dl': [],
+                 'div': ['id', 'class'],
+                 'dl': ['id', 'style'],
                  'dt': [],
                  'h1': [],
-                 'h2': [],
+                 'h2': ['id', 'style'],
                  'h3': ['id'], # FIXME
                  'h4': [], # FIXME
                  'head': [],
@@ -296,15 +327,20 @@ for elm in tags(doc):
                  'html': ['xmlns'],
                  'i': [],
                  'img': ['alt', 'src', 'width'],
-                 'li': [],
+                 'li': ['id'],
                  'meta': ['content', 'http-equiv'],
                  'ol': [],
                  'p': ['class', 'id', 'style'],
                  'pre': [], # FIXME
-                 'span': [],
+                 'span': ['class', 'id'],
                  'style': ['type'],
                  'sup': [],
+                 'table': [],
+                 'tbody': [],
+                 'td': ['class', 'colspan', 'rowspan', 'style'],
+                 'th': [],
                  'title': [],
+                 'tr': ['class'],
                  'ul': []}
     assert elm.tagName in whitelist
     attrs = elm.attributes
@@ -318,9 +354,12 @@ link.setAttribute('rel', 'stylesheet')
 link.setAttribute('href', 'stylesheet.css')
 style = first('style')
 if style != None:
-    style.parentNode.insertBefore(link, style)
+    insertBefore(link, style)
+    insertBefore(doc.createTextNode('\n'), style)
 else:
     first('head').appendChild(link)
 
 dst = open(sys.argv[2], 'w+')
 dst.write(html.toxml('utf-8'))
+dst.write('\n')
+dst.close()
