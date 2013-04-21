@@ -45,16 +45,16 @@ def isempty(node):
     def isspace(s):
         return len(s) == 0 or s.isspace()
     if node.nodeType == node.TEXT_NODE:
-        return isspace(node.nodeValue)
+        return isspace(node.data)
     elif node.nodeType == node.ELEMENT_NODE:
-        return all([n.nodeType == n.TEXT_NODE and isspace(n.nodeValue)
+        return all([n.nodeType == n.TEXT_NODE and isspace(n.data)
                     for n in node.childNodes])
     else:
         return False
 
 # equivalent to DOM's textContent
 def textContent(node):
-    return ''.join([n.nodeValue for n in textnodes(node)])
+    return ''.join([n.data for n in textnodes(node)])
 
 html = doc.documentElement
 body = first('body')
@@ -154,7 +154,7 @@ for b in tags(doc, 'b'):
         assert b.firstChild == None
     else:
         # only numbered notes should remain
-        assert textContent(b).isdigit() and b.nextSibling.nodeValue == '.'
+        assert textContent(b).isdigit() and b.nextSibling.data == '.'
 
 # prettify whitespace
 doc.normalize()
@@ -162,12 +162,12 @@ for p in tags(doc, 'p'):
     for ref in [p, p.nextSibling]:
         p.parentNode.insertBefore(doc.createTextNode('\n'), ref)
     if p.firstChild.nodeType == p.TEXT_NODE:
-        p.firstChild.nodeValue = p.firstChild.nodeValue.lstrip()
+        p.firstChild.data = p.firstChild.data.lstrip()
     if p.lastChild.nodeType == p.TEXT_NODE:
-        p.lastChild.nodeValue = p.lastChild.nodeValue.rstrip()
+        p.lastChild.data = p.lastChild.data.rstrip()
 doc.normalize()
 for n in textnodes(doc):
-    n.nodeValue = re.sub(r'\s*\n\s*', '\n', n.nodeValue)
+    n.data = re.sub(r'\s*\n\s*', '\n', n.data)
 
 # replace ' and " with appropriate left/right single/double quotes
 def quotify(elm):
@@ -232,8 +232,8 @@ def quotify(elm):
     # ... and then spread them out again
     offset = 0
     for n in textnodes(elm):
-        n.nodeValue = text[offset:offset+len(n.nodeValue)]
-        offset += len(n.nodeValue)
+        n.data = text[offset:offset+len(n.data)]
+        offset += len(n.data)
 
 for elm in tags(body):
     if elm.tagName in ['dd', 'h2', 'li', 'p']:
@@ -241,7 +241,7 @@ for elm in tags(body):
 
 # replace ' - ' with em dash
 for n in textnodes(body):
-    n.nodeValue = re.sub(r'\s+-\s+', mdash, n.nodeValue, flags=re.M)
+    n.data = re.sub(r'\s+-\s+', mdash, n.data, flags=re.M)
 
 # replace '. . .' with ellipsis
 def ellipsify(m):
@@ -263,7 +263,7 @@ def ellipsify(m):
     assert False
 
 for n in textnodes(body):
-    n.nodeValue = re.sub(r'[\s.]*[.][\s.]*', ellipsify, n.nodeValue, flags=re.M)
+    n.data = re.sub(r'[\s.]*[.][\s.]*', ellipsify, n.data, flags=re.M)
 
 # assert that the text content is to our liking
 text = textContent(body)
