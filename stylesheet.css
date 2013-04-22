@@ -1,0 +1,38 @@
+h1, h2 {
+    text-align: center;
+}
+h1 {
+    font-size: 1.4em;
+}
+h2 {
+    font-size: 1.2em;
+}
+p, li {
+    text-align: justify;
+}
+a {
+    color: #009;
+    text-decoration: none;
+}
+hr {
+    border: 0;
+    border-top: 1px solid black;
+    height: 0;
+    margin-left: 0;
+    width: 25%;
+}
+.figure {
+    margin: 1em 0;
+    page-break-inside: avoid;
+    text-align: center;
+}
+.figure img {
+    display: inline-block;
+    height: auto;
+    max-width: 100%;
+}
+.figure .caption {
+    font-size: 0.95em;
+    margin: 0.1em 2em;
+    text-align: center;
+}

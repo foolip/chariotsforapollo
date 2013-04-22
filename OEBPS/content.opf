@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="bookid">
+  <metadata>
+    <meta content="cover-image" name="cover"/>
+    <dc:identifier id="bookid">urn:uuid:00000000-0000-0000-0000-000000000000</dc:identifier>
+    <dc:title>Example Title</dc:title>
+    <dc:creator>Example Author</dc:creator>
+    <dc:date>0000</dc:date>
+    <dc:publisher>Example Publisher</dc:publisher>
+    <dc:language>en</dc:language>
+  </metadata>
+  <manifest>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+    <item href="stylesheet.css" id="css" media-type="text/css"/>
+    <item href="cover.jpg" id="cover-image" media-type="image/jpeg"/>
+    <item href="cover.html" id="cover" media-type="application/xhtml+xml"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="cover" linear="no"/>
+  </spine>
+  <guide>
+    <reference href="cover.html" title="Cover" type="cover"/>
+  </guide>
+</package>
