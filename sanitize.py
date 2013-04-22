@@ -10,9 +10,20 @@ ldquo = u'\u201C'
 rdquo = u'\u201D'
 hellip = u'\u2026'
 
-src = open(sys.argv[1], 'r')
+srcpath = sys.argv[1]
+dstpath = sys.argv[2]
 
-doc = html5lib.parse(src, treebuilder='dom')
+parser = html5lib.HTMLParser(tree=html5lib.treebuilders.getTreeBuilder('dom'))
+src = open(srcpath, 'r')
+doc = parser.parse(src)
+
+if len(parser.errors) > 0:
+    for pos, errorcode, datavars in parser.errors:
+        msg = html5lib.constants.E.get(errorcode, 'Unknown error "%s"' %
+                                       errorcode) % datavars
+        sys.stderr.write("%s:%d:%d: error: %s\n" %
+                         (srcpath, pos[0], pos[1], msg))
+    sys.exit(1)
 
 # yield all the children of root in tree order
 def walk(root):
@@ -359,7 +370,7 @@ if style != None:
 else:
     first('head').appendChild(link)
 
-dst = open(sys.argv[2], 'w+')
+dst = open(dstpath, 'w+')
 dst.write(html.toxml('utf-8'))
 dst.write('\n')
 dst.close()
