@@ -47,6 +47,13 @@ def textnodes(root):
 def first(tagName):
     return next(tags(doc, tagName), None)
 
+# return the last element matching tagName
+def last(tagName):
+    ret = None
+    for elm in tags(doc, tagName):
+        ret = elm
+    return ret
+
 # insert elm after ref
 def insertBefore(elm, ref):
     ref.parentNode.insertBefore(elm, ref)
@@ -73,6 +80,10 @@ def pad(elm, char):
 # remove an element from its parent
 def remove(node):
     node.parentNode.removeChild(node)
+
+# replace oldElm with newElm
+def replace(oldElm, newElm):
+    oldElm.parentNode.replaceChild(newElm, oldElm)
 
 # replace an element with its children
 def replaceWithChildren(elm):
@@ -108,7 +119,7 @@ if body.hasAttribute('bgcolor'):
     body.removeAttribute('bgcolor')
 for img in tags(doc, 'img'):
     for attr in ['width', 'height']:
-        if img.hasAttribute(attr) and not img.getAttribute(attr).endswith('%'):
+        if img.hasAttribute(attr):
             img.removeAttribute(attr)
 
 # remove comments
@@ -337,7 +348,7 @@ for elm in tags(doc):
                  'hr': [],
                  'html': ['xmlns'],
                  'i': [],
-                 'img': ['alt', 'src', 'width'],
+                 'img': ['alt', 'src', 'style'],
                  'li': ['id'],
                  'meta': ['content', 'http-equiv'],
                  'ol': [],
