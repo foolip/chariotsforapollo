@@ -354,7 +354,8 @@ for a in iterTags(doc, 'a'):
         a.parentNode.setAttribute('id', a.getAttribute('name'))
         replaceWithChildren(a)
 
-# add [] around note links
+# add [] around note links (and remember them for quotify)
+noteLinks = set()
 for a in iterTags(doc, 'a'):
     href = a.getAttribute('href')
     if href.startswith('#explanation') or href.startswith('#source'):
@@ -362,6 +363,7 @@ for a in iterTags(doc, 'a'):
         remove(a.firstChild)
         assert a.firstChild == None
         a.appendChild(doc.createTextNode('[%s]' % text))
+        noteLinks.add(a)
 
 # remove useless <b>
 for b in iterTags(doc, 'b'):
@@ -374,7 +376,7 @@ for b in iterTags(doc, 'b'):
 
 for elm in iterTags(body):
     if elm.tagName in ['dd', 'dt', 'h1', 'h2', 'h3', 'li', 'p', 'td', 'th']:
-        quotify(elm)
+        quotify(elm, lambda n: n in noteLinks)
 assert re.search(r'[`\'"]', textContent(body)) == None
 
 dashify(body)
