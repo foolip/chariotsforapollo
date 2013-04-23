@@ -32,7 +32,7 @@ doc = parse(srcpath)
 doc.normalize()
 
 # yield all the children of root in tree order
-def walk(root):
+def iterNodes(root):
     pending = list(reversed(root.childNodes))
     while len(pending) > 0:
         node = pending.pop()
@@ -41,13 +41,13 @@ def walk(root):
             pending.append(child)
 
 # yield all the element childen of root in tree order
-def tags(root, tagName=None):
-    return (n for n in walk(root) if n.nodeType == n.ELEMENT_NODE and
+def iterTags(root, tagName=None):
+    return (n for n in iterNodes(root) if n.nodeType == n.ELEMENT_NODE and
             (tagName == None or n.tagName == tagName))
 
 # yield all the text node childen of root in tree order
-def textnodes(root):
-    return (n for n in walk(root) if n.nodeType == n.TEXT_NODE)
+def iterText(root):
+    return (n for n in iterNodes(root) if n.nodeType == n.TEXT_NODE)
 
 # add a stylesheet (before any <style> elements)
 def addStylesheet(href):
@@ -70,12 +70,12 @@ def addTalismans():
 # collapse newlines (also strips leading/trailing whitespace)
 def collapseNewlines():
     doc.normalize()
-    for n in textnodes(doc):
+    for n in iterText(doc):
         n.data = re.sub(r'\s*\n\s*', '\n', n.data)
 
 # replace ' - ' with em dash
 def dashify(elm):
-    for n in textnodes(elm):
+    for n in iterText(elm):
         n.data = re.sub(r'\s+-\s+', mdash, n.data, flags=re.M)
     # fail if the input was too complicated for us
     text = textContent(elm)
@@ -106,13 +106,13 @@ def ellipsify(elm):
             assert before.isalpha()
             return '. ' + hellip + suffix
         assert False
-    for n in textnodes(elm):
+    for n in iterText(elm):
         n.data = re.sub(r'[\s.]*[.][\s.]*', repl, n.data, flags=re.M)
 
 # strip internal whitespace and pad with newlines
 def externalizeWhitespace(tagNames):
     doc.normalize()
-    for elm in tags(doc):
+    for elm in iterTags(doc):
         if elm.tagName not in tagNames:
             continue
         if elm.firstChild.nodeType == elm.TEXT_NODE:
@@ -123,12 +123,12 @@ def externalizeWhitespace(tagNames):
 
 # return the first element matching tagName
 def first(tagName):
-    return next(tags(doc, tagName), None)
+    return next(iterTags(doc, tagName), None)
 
 # return the last element matching tagName
 def last(tagName):
     ret = None
-    for elm in tags(doc, tagName):
+    for elm in iterTags(doc, tagName):
         ret = elm
     return ret
 
@@ -140,9 +140,21 @@ def insertBefore(elm, ref):
 def insertAfter(elm, ref):
     ref.parentNode.insertBefore(elm, ref.nextSibling)
 
+# true if node is whitespace or has only whitespace children
+def isEmpty(node):
+    def isSpace(s):
+        return len(s) == 0 or s.isspace()
+    if node.nodeType == node.TEXT_NODE:
+        return isSpace(node.data)
+    elif node.nodeType == node.ELEMENT_NODE:
+        return all([n.nodeType == n.TEXT_NODE and isSpace(n.data)
+                    for n in node.childNodes])
+    else:
+        return False
+
 # change element names based on a map like { 'em' : 'i' }
 def mapTags(tagMap):
-    for elm in tags(doc):
+    for elm in iterTags(doc):
         if elm.tagName in tagMap:
             elm.tagName = tagMap[elm.tagName]
 
@@ -167,24 +179,24 @@ def remove(node):
 
 # remove attributes based on a map like { 'body' : [bgcolor] }
 def removeAttributes(attrMap):
-    for elm in tags(doc):
+    for elm in iterTags(doc):
         if elm.tagName in attrMap:
             for attr in attrMap[elm.tagName]:
                 if elm.hasAttribute(attr):
                     elm.removeAttribute(attr)
 
+# remove all comment nodes
+def removeComments():
+    for n in iterNodes(doc):
+        if n.nodeType == n.COMMENT_NODE:
+            remove(n)
+
 # remove empty elements
 def removeEmpty(tagNames):
     # reverse order to get them all
-    for elm in reversed(list(tags(doc))):
-        if elm.tagName in tagNames and isempty(elm):
+    for elm in reversed(list(iterTags(doc))):
+        if elm.tagName in tagNames and isEmpty(elm):
             remove(elm)
-
-# remove all comment nodes
-def removeComments():
-    for n in walk(doc):
-        if n.nodeType == n.COMMENT_NODE:
-            remove(n)
 
 # replace oldElm with newElm
 def replace(oldElm, newElm):
@@ -196,18 +208,6 @@ def replaceWithChildren(elm):
         insertBefore(elm.firstChild, elm)
     remove(elm)
 
-# true if node is whitespace or has only whitespace children
-def isempty(node):
-    def isspace(s):
-        return len(s) == 0 or s.isspace()
-    if node.nodeType == node.TEXT_NODE:
-        return isspace(node.data)
-    elif node.nodeType == node.ELEMENT_NODE:
-        return all([n.nodeType == n.TEXT_NODE and isspace(n.data)
-                    for n in node.childNodes])
-    else:
-        return False
-
 # serialize as XHTML
 def serialize(path):
     dst = open(path, 'w+')
@@ -217,7 +217,7 @@ def serialize(path):
 
 # equivalent to DOM's textContent
 def textContent(node):
-    return ''.join([n.data for n in textnodes(node)])
+    return ''.join([n.data for n in iterText(node)])
 
 # replace ' and " with appropriate left/right single/double quotes
 def quotify(elm):
@@ -281,7 +281,7 @@ def quotify(elm):
     assert dq.isopen in ['no', 'maybe']
     # ... and then spread them out again
     offset = 0
-    for n in textnodes(elm):
+    for n in iterText(elm):
         n.data = text[offset:offset+len(n.data)]
         offset += len(n.data)
 
@@ -296,7 +296,7 @@ removeComments()
 
 removeEmpty(['b', 'i', 'li', 'p', 'sub', 'sup'])
 
-for elm in tags(body):
+for elm in iterTags(body):
     if elm.tagName in ['dd', 'dt', 'h1', 'h2', 'h3', 'li', 'p', 'td', 'th']:
         quotify(elm)
 assert re.search(r'[`\'"]', textContent(body)) == None
