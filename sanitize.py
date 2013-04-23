@@ -32,10 +32,12 @@ doc = parse(srcpath)
 doc.normalize()
 
 # yield all the children of root in tree order
-def iterNodes(root):
+def iterNodes(root, exclude=None):
     pending = list(reversed(root.childNodes))
     while len(pending) > 0:
         node = pending.pop()
+        if exclude and exclude(node):
+            continue
         yield node
         for child in reversed(node.childNodes):
             pending.append(child)
@@ -46,8 +48,8 @@ def iterTags(root, tagName=None):
             (tagName == None or n.tagName == tagName))
 
 # yield all the text node childen of root in tree order
-def iterText(root):
-    return (n for n in iterNodes(root) if n.nodeType == n.TEXT_NODE)
+def iterText(root, exclude=None):
+    return (n for n in iterNodes(root, exclude) if n.nodeType == n.TEXT_NODE)
 
 # add a stylesheet (before any <style> elements)
 def addStylesheet(href):
@@ -220,7 +222,7 @@ def textContent(node):
     return ''.join([n.data for n in iterText(node)])
 
 # replace ' and " with appropriate left/right single/double quotes
-def quotify(elm):
+def quotify(elm, exclude=None):
     class State:
         def __init__(this, left, right):
             this.isopen = 'no'
@@ -241,47 +243,50 @@ def quotify(elm):
             return this.right
     sq = State(lsquo, rsquo)
     dq = State(ldquo, rdquo)
+
     def repl(m):
         q = dq if m.group(0) == '"' else sq
         before = m.string[m.start(0)-1] if m.start(0) > 0 else ' '
         after = m.string[m.end(0)] if m.end(0) < len(m.string) else ' '
-        context = before + m.group(0) + after
+
+        def isWord(c):
+            assert len(c) == 1
+            return bool(re.match(r'\w', c, re.U))
+
         # non-quoting and ambiguous usage of '
-        if q == sq:
-            if before.isalnum() and after.isalpha():
+        if m.group() == "'":
+            if isWord(before) and isWord(after):
                 # moon's or similar
                 return rsquo
             if before in 'sz' and after.isspace():
                 # engineers' or similar
                 return sq.ambclose()
-        # the simple cases
+
+        # cases with whitespace on either side
         if before.isspace() and not after.isspace():
             return q.open()
         if not before.isspace() and after.isspace():
             return q.close()
-        # document-specific cases
-        if context[0].isalnum():
-            context = 'a' + context[1:]
-        if context[2].isalnum():
-            context = context[:2] + 'a'
-        if context in ['"\'a']:
-            return sq.open()
-        if context in ['.\'"', ',\'"', "a',"]:
-            return sq.close()
-        if context in ['("a', '["a']:
-            return dq.open()
-        if context in ['\'"[', '."[', ',"[', 'a";', '?"[', 'a")', 'a":',
-                       'a"[', 'a"]', ')"]', ')":', ')";', '.")', '.";']:
-            return dq.close()
+
+        # cases with no whitespace
+        canOpen = isWord(after) or after in set ('[(' + hellip)
+        canClose = isWord(before) or before in set('.,;!?)]' + hellip)
+        if canOpen and not canClose:
+            return q.open()
+        if canClose and not canOpen:
+            return q.close()
         assert False
+
     # join the text children to do the work ...
-    text = textContent(elm)
+    textNodes = list(iterText(elm, exclude))
+    text = ''.join([n.data for n in textNodes])
     text = re.sub(r'[`\'"]', repl, text)
     assert sq.isopen in ['no', 'maybe']
     assert dq.isopen in ['no', 'maybe']
+
     # ... and then spread them out again
     offset = 0
-    for n in iterText(elm):
+    for n in textNodes:
         n.data = text[offset:offset+len(n.data)]
         offset += len(n.data)
 
