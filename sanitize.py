@@ -175,6 +175,32 @@ def pad(elm, char):
     else:
         insertAfter(doc.createTextNode(char), elm)
 
+# move direct text children and their friends into <p>
+def paragraphize(elm):
+    p = None
+    for n in list(elm.childNodes):
+        create = False
+        append = False
+        if n.nodeType == n.TEXT_NODE:
+            create = not isEmpty(n)
+            append = True
+        elif n.nodeType == n.ELEMENT_NODE:
+            if n.tagName in ['a', 'b', 'i', 'span', 'sub', 'sup']:
+                create = True
+                append = True
+            else:
+                assert n.tagName in ['blockquote', 'center', 'div', 'dl',
+                                     'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+                                     'hr', 'ol', 'p', 'table', 'ul']
+                p = None
+        else:
+            assert False
+        if create and p == None:
+            p = doc.createElement('p')
+            replace(n, p)
+        if append and p != None:
+            p.appendChild(n)
+
 # make URLs as relative as possible
 # path is the (rightmost) bit which should be stripped
 def relativize(path):
