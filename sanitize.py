@@ -175,6 +175,21 @@ def pad(elm, char):
     else:
         insertAfter(doc.createTextNode(char), elm)
 
+# make URLs as relative as possible
+# path is the (rightmost) bit which should be stripped
+def relativize(path):
+    for a in iterTags(doc, 'a'):
+        if a.hasAttribute('href'):
+            href = a.getAttribute('href')
+            # strip leading parts of the path
+            href = href.split(path)[-1]
+            # strip the filename from local #references
+            filename = srcpath.split('/')[-1]
+            if href.startswith(filename + '#'):
+                href = href[len(filename):]
+            # done
+            a.setAttribute('href', href)
+
 # remove an element from its parent
 def remove(node):
     node.parentNode.removeChild(node)
