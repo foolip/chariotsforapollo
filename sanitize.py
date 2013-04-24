@@ -223,21 +223,27 @@ def textContent(node):
 
 # replace ' and " with appropriate left/right single/double quotes
 def quotify(elm, exclude=None):
+    def error(msg):
+        sys.stderr.write('%s: error: %s\n' % (srcpath, msg))
+        sys.stderr.write(text)
+        sys.exit(1)
+
     class State:
         def __init__(this, left, right):
             this.isopen = 'no'
             this.left = left
             this.right = right
         def open(this):
-            assert this.isopen in ['no', 'maybe']
+            if this.isopen == 'yes':
+                error('Right quote (%s) missing' % this.right)
             this.isopen = 'yes'
             return this.left
         def close(this):
-            assert this.isopen in ['yes', 'maybe']
+            if this.isopen == 'no':
+                error('Left quote (%s) missing' % this.left)
             this.isopen = 'no'
             return this.right
         def ambclose(this):
-            assert this.isopen in ['yes', 'no', 'maybe']
             if this.isopen == 'yes':
                 this.isopen = 'maybe'
             return this.right
@@ -275,14 +281,18 @@ def quotify(elm, exclude=None):
             return q.open()
         if canClose and not canOpen:
             return q.close()
-        assert False
+
+        error('Quote (%s) needs manual intervention' % m.group(0))
 
     # join the text children to do the work ...
     textNodes = list(iterText(elm, exclude))
     text = ''.join([n.data for n in textNodes])
     text = re.sub(r'[`\'"]', repl, text)
-    assert sq.isopen in ['no', 'maybe']
-    assert dq.isopen in ['no', 'maybe']
+
+    if sq.isopen == 'yes':
+        error('Right quote (%s) missing' % sq.right)
+    if dq.isopen == 'yes':
+        error('Right quote (%s) missing' % dq.right)
 
     # ... and then spread them out again
     offset = 0
