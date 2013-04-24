@@ -164,13 +164,13 @@ def mapTags(tagMap):
 def pad(elm, char):
     prev = elm.previousSibling
     if prev and prev.nodeType == elm.TEXT_NODE:
-        if prev.data[-1] != char:
+        if not prev.data.endswith(char):
             prev.data = prev.data + char
     else:
         insertBefore(doc.createTextNode(char), elm)
     next = elm.nextSibling
     if next and next.nodeType == elm.TEXT_NODE:
-        if next.data[0] != char:
+        if not next.data.startswith(char):
             next.data = char + next.data
     else:
         insertAfter(doc.createTextNode(char), elm)
