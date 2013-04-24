@@ -97,9 +97,9 @@ def ellipsify(elm):
         assert before is None or before.isalnum() or \
             before in set(',;?])' + quotes)
         assert after is None or after.isalnum() or \
-            after in set(',:?'+ mdash + quotes)
+            after in set(',;:?'+ mdash + quotes)
         suffix = '' if (after is None or after in
-                        set(',:?' + mdash + rsquo + rdquo)) else ' '
+                        set(',;:?' + mdash + rsquo + rdquo)) else ' '
         if s.strip() == '. . .':
             prefix = '' if (before is None or before in
                             set(lsquo + ldquo)) else ' '
