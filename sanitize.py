@@ -346,7 +346,7 @@ def quotify(elm, exclude=None):
 body = first('body')
 
 removeAttributes({'body': ['bgcolor'],
-                  'img': ['width', 'height']})
+                  'img': ['align', 'height', 'hspace', 'vspace', 'width']})
 
 removeComments()
 
