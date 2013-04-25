@@ -360,22 +360,29 @@ removeAttributes({'body': ['bgcolor'],
 
 removeComments()
 
+mapTags({'em': 'i', 'cite': 'i', 'strong': 'b'})
+
 removeEmpty(['b', 'i', 'li', 'p', 'sub', 'sup'])
 
-for elm in iterTags(body):
-    if elm.tagName in ['dd', 'dt', 'h1', 'h2', 'h3', 'li', 'p', 'td', 'th']:
-        quotify(elm)
-assert re.search(r'[`\'"]', textContent(body)) == None
+removeMeta()
 
-dashify(body)
+#paragraphize(body)
+#for bq in iterTags(doc, 'blockquote'):
+#    paragraphize(bq)
 
-ellipsify(body)
+#noteLinks = set()
+#for elm in iterTags(body):
+#    if elm.tagName in ['dd', 'dt', 'h1', 'h2', 'h3', 'li', 'p', 'td', 'th']:
+#        quotify(elm, lambda n: n in noteLinks)
+#assert re.search(r'[`\'"]', textContent(body)) == None
+
+#dashify(body)
+
+#ellipsify(body)
 
 externalizeWhitespace(['dd', 'dt', 'li', 'p'])
 
 collapseNewlines()
-
-mapTags({'em': 'i', 'cite': 'i', 'strong': 'b'})
 
 addTalismans()
 
