@@ -241,6 +241,16 @@ def removeEmpty(tagNames):
         if elm.tagName in tagNames and isEmpty(elm):
             remove(elm)
 
+# remove junk <meta> tags
+def removeMeta():
+    kept = 0
+    for meta in iterTags(doc, 'meta'):
+        if meta.hasAttribute('http-equiv'):
+            kept += 1
+        else:
+            remove(meta)
+    assert kept == 1
+
 # replace oldElm with newElm
 def replace(oldElm, newElm):
     oldElm.parentNode.replaceChild(newElm, oldElm)
