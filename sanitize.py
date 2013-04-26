@@ -360,7 +360,7 @@ removeAttributes({'body': ['bgcolor'],
 
 removeComments()
 
-mapTags({'em': 'i', 'cite': 'i', 'strong': 'b'})
+mapTags({'cite': 'i', 'em': 'i', 'strong': 'b'})
 
 removeEmpty(['b', 'i', 'li', 'p', 'sub', 'sup'])
 
