@@ -97,9 +97,9 @@ def ellipsify(elm):
         assert before is None or before.isalnum() or \
             before in set(',;?])' + quotes)
         assert after is None or after.isalnum() or \
-            after in set(',:?'+ mdash + quotes)
+            after in set(',;:?'+ mdash + quotes)
         suffix = '' if (after is None or after in
-                        set(',:?' + mdash + rsquo + rdquo)) else ' '
+                        set(',;:?' + mdash + rsquo + rdquo)) else ' '
         if s.strip() == '. . .':
             prefix = '' if (before is None or before in
                             set(lsquo + ldquo)) else ' '
@@ -164,16 +164,57 @@ def mapTags(tagMap):
 def pad(elm, char):
     prev = elm.previousSibling
     if prev and prev.nodeType == elm.TEXT_NODE:
-        if prev.data[-1] != char:
+        if not prev.data.endswith(char):
             prev.data = prev.data + char
     else:
         insertBefore(doc.createTextNode(char), elm)
     next = elm.nextSibling
     if next and next.nodeType == elm.TEXT_NODE:
-        if next.data[0] != char:
+        if not next.data.startswith(char):
             next.data = char + next.data
     else:
         insertAfter(doc.createTextNode(char), elm)
+
+# move direct text children and their friends into <p>
+def paragraphize(elm):
+    p = None
+    for n in list(elm.childNodes):
+        create = False
+        append = False
+        if n.nodeType == n.TEXT_NODE:
+            create = not isEmpty(n)
+            append = True
+        elif n.nodeType == n.ELEMENT_NODE:
+            if n.tagName in ['a', 'b', 'i', 'span', 'sub', 'sup']:
+                create = True
+                append = True
+            else:
+                assert n.tagName in ['blockquote', 'center', 'div', 'dl',
+                                     'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+                                     'hr', 'ol', 'p', 'table', 'ul']
+                p = None
+        else:
+            assert False
+        if create and p == None:
+            p = doc.createElement('p')
+            replace(n, p)
+        if append and p != None:
+            p.appendChild(n)
+
+# make URLs as relative as possible
+# path is the (rightmost) bit which should be stripped
+def relativize(path):
+    for a in iterTags(doc, 'a'):
+        if a.hasAttribute('href'):
+            href = a.getAttribute('href')
+            # strip leading parts of the path
+            href = href.split(path)[-1]
+            # strip the filename from local #references
+            filename = srcpath.split('/')[-1]
+            if href.startswith(filename + '#'):
+                href = href[len(filename):]
+            # done
+            a.setAttribute('href', href)
 
 # remove an element from its parent
 def remove(node):
@@ -200,6 +241,16 @@ def removeEmpty(tagNames):
         if elm.tagName in tagNames and isEmpty(elm):
             remove(elm)
 
+# remove junk <meta> tags
+def removeMeta():
+    kept = 0
+    for meta in iterTags(doc, 'meta'):
+        if meta.hasAttribute('http-equiv'):
+            kept += 1
+        else:
+            remove(meta)
+    assert kept == 1
+
 # replace oldElm with newElm
 def replace(oldElm, newElm):
     oldElm.parentNode.replaceChild(newElm, oldElm)
@@ -223,21 +274,27 @@ def textContent(node):
 
 # replace ' and " with appropriate left/right single/double quotes
 def quotify(elm, exclude=None):
+    def error(msg):
+        sys.stderr.write('%s: error: %s\n' % (srcpath, msg))
+        sys.stderr.write(text)
+        sys.exit(1)
+
     class State:
         def __init__(this, left, right):
             this.isopen = 'no'
             this.left = left
             this.right = right
         def open(this):
-            assert this.isopen in ['no', 'maybe']
+            if this.isopen == 'yes':
+                error('Right quote (%s) missing' % this.right)
             this.isopen = 'yes'
             return this.left
         def close(this):
-            assert this.isopen in ['yes', 'maybe']
+            if this.isopen == 'no':
+                error('Left quote (%s) missing' % this.left)
             this.isopen = 'no'
             return this.right
         def ambclose(this):
-            assert this.isopen in ['yes', 'no', 'maybe']
             if this.isopen == 'yes':
                 this.isopen = 'maybe'
             return this.right
@@ -275,14 +332,18 @@ def quotify(elm, exclude=None):
             return q.open()
         if canClose and not canOpen:
             return q.close()
-        assert False
+
+        error('Quote (%s) needs manual intervention' % m.group(0))
 
     # join the text children to do the work ...
     textNodes = list(iterText(elm, exclude))
     text = ''.join([n.data for n in textNodes])
     text = re.sub(r'[`\'"]', repl, text)
-    assert sq.isopen in ['no', 'maybe']
-    assert dq.isopen in ['no', 'maybe']
+
+    if sq.isopen == 'yes':
+        error('Right quote (%s) missing' % sq.right)
+    if dq.isopen == 'yes':
+        error('Right quote (%s) missing' % dq.right)
 
     # ... and then spread them out again
     offset = 0
@@ -295,9 +356,15 @@ def quotify(elm, exclude=None):
 body = first('body')
 
 removeAttributes({'body': ['bgcolor'],
-                  'img': ['width', 'height']})
+                  'img': ['align', 'height', 'hspace', 'vspace', 'width']})
 
 removeComments()
+
+mapTags({'em': 'i', 'cite': 'i', 'strong': 'b'})
+
+removeEmpty(['b', 'i', 'li', 'p', 'sub', 'sup'])
+
+removeMeta()
 
 # remove the footer (empty elements and images at end of body)
 for n in reversed(list(iterNodes(body))):
@@ -309,8 +376,6 @@ for n in reversed(list(iterNodes(body))):
         remove(n)
     else:
         break
-
-removeEmpty(['b', 'i', 'li', 'p', 'sub', 'sup'])
 
 # group figures and their captions
 def figurize(fig):
@@ -386,8 +451,6 @@ ellipsify(body)
 externalizeWhitespace(['dd', 'dt', 'li', 'p'])
 
 collapseNewlines()
-
-mapTags({'em': 'i', 'cite': 'i', 'strong': 'b'})
 
 addTalismans()
 
