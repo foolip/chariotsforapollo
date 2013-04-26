@@ -18,7 +18,7 @@ identify -format "%w %h" "$src" | while read w h; do
 	read maxw maxh < "$size"
     fi
     if [ -n "$args" -o $w -gt $maxw -o $h -gt $maxh ]; then
-	convert "$src" $args +repage -resize "${maxw}x${maxh}>" \
+	convert "$src" -auto-orient $args +repage -resize "${maxw}x${maxh}>" \
 	    -strip -quality 95 "$dst"
     else
 	cp "$src" "$dst"
