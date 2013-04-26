@@ -411,6 +411,12 @@ for p in iterTags(doc, 'p'):
 for center in iterTags(doc, 'center'):
     figurize(center)
 
+# assert that all images were properly converted
+for img in iterTags(doc, 'img'):
+    if img.getAttribute('src') != 'cover.jpg':
+        fig = img.parentNode
+        assert fig.getAttribute('class') == 'figure'
+
 # move <a name="foo"> anchors to parent <? id="foo">
 for a in iterTags(doc, 'a'):
     whitelist = set(['p', 'h3'])
