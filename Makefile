@@ -14,10 +14,10 @@ $(EPUB_FILE): $(GIT_FILES) $(OEBPS_FILES)
 	zip -rg $@ META-INF OEBPS -x \*~ \*.gitignore
 
 OEBPS/%.htm: %.htm
-	PYTHONPATH=html5lib-python python sanitize.py $< $@
+	./sanitize.py $< $@
 
 OEBPS/%.html: %.html
-	PYTHONPATH=html5lib-python python sanitize.py $< $@
+	./sanitize.py $< $@
 
 OEBPS/%.gif: %.gif
 	cp $< $@
