@@ -1,7 +1,13 @@
-import html5lib
+#!/usr/bin/env python
+
+import os.path
 import re
 import sys
 import xml.dom
+
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]),
+                             'html5lib-python'))
+import html5lib
 
 mdash = u'\u2014'
 lsquo = u'\u2018'
