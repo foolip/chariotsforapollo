@@ -25,6 +25,7 @@ hr {
     margin: 1em 0;
     page-break-inside: avoid;
     text-align: center;
+    text-indent: 0;
 }
 .figure img {
     display: inline-block;
@@ -35,4 +36,5 @@ hr {
     font-size: 0.95em;
     margin: 0.1em 2em;
     text-align: center;
+    text-indent: 0;
 }
