@@ -484,10 +484,11 @@ for elm in iterTags(body):
         quotify(elm, lambda n: n in noteLinks)
 assert re.search(r'[`\'"]', textContent(body)) == None
 
-#for elm in iterTags(body):
-#    if elm.tagName in ['dd', 'dt', 'h1', 'h2', 'h3', 'li', 'p', 'td', 'th']:
-#        checkBrackets(elm)
-#checkBrackets(body)
+if srcpath != 'ch11-6.html':
+    for elm in iterTags(body):
+        if elm.tagName in ['dd', 'dt', 'h1', 'h2', 'h3', 'li', 'p', 'td', 'th']:
+            checkBrackets(elm)
+checkBrackets(body)
 
 dashify(body)
 
