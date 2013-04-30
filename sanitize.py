@@ -75,6 +75,34 @@ def addTalismans():
     first('meta').setAttribute('content',
                                'application/xhtml+xml; charset=utf-8')
 
+# verify that brackets are balanced
+def checkBrackets(elm):
+    def error(bracket, line):
+        sys.stderr.write('%s: error: Unbalanced bracket: %s\n' %
+                         (srcpath, bracket))
+        sys.stderr.write('%s\n' % line.strip())
+        sys.exit(1)
+
+    stack = []
+    groups = ['[]', '()', '{}', '<>']
+    for line in textContent(elm).splitlines():
+        for c in line:
+            for group in groups:
+                if c == group[0]:
+                    # opening bracket
+                    stack.append((c, line))
+                elif c == group[1]:
+                    # closing bracket
+                    if len(stack) > 0:
+                        if stack[-1][0] == group[0]:
+                            stack.pop()
+                        else:
+                            error(*stack[-1])
+                    else:
+                        error(c, line)
+    if len(stack) > 0:
+        error(*stack[0])
+
 # collapse newlines (also strips leading/trailing whitespace)
 def collapseNewlines():
     doc.normalize()
@@ -455,6 +483,11 @@ for elm in iterTags(body):
     if elm.tagName in ['dd', 'dt', 'h1', 'h2', 'h3', 'li', 'p', 'td', 'th']:
         quotify(elm, lambda n: n in noteLinks)
 assert re.search(r'[`\'"]', textContent(body)) == None
+
+#for elm in iterTags(body):
+#    if elm.tagName in ['dd', 'dt', 'h1', 'h2', 'h3', 'li', 'p', 'td', 'th']:
+#        checkBrackets(elm)
+#checkBrackets(body)
 
 dashify(body)
 
