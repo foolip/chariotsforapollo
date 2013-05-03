@@ -103,6 +103,18 @@ def checkBrackets(elm):
     if len(stack) > 0:
         error(*stack[0])
 
+# check that there no non-void empty elements
+def checkPolyglot():
+    voidTags = set(['area', 'base', 'br', 'col', 'embed', 'hr',
+                    'img', 'input', 'keygen', 'link', 'menuitem',
+                    'meta', 'param', 'source', 'track', 'wbr'])
+    doc.normalize()
+    for elm in iterTags(doc):
+        if len(elm.childNodes) == 0 and elm.tagName not in voidTags:
+            sys.stderr.write('%s: error: <%s/> will parse differently as HTML and XML\n' %
+                             (srcpath, elm.tagName))
+            sys.exit(1)
+
 # collapse newlines (also strips leading/trailing whitespace)
 def collapseNewlines():
     doc.normalize()
@@ -501,5 +513,7 @@ collapseNewlines()
 addTalismans()
 
 addStylesheet('stylesheet.css')
+
+checkPolyglot()
 
 serialize(dstpath)
