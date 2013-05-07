@@ -25,6 +25,9 @@ OEBPS/%.gif: %.gif
 OEBPS/%.jpg: %.jpg
 	./resize.sh $< $@ 1000 1000
 
+OEBPS/%.png: %.png
+	./resize.sh $< $@ 1000 1000
+
 OEBPS/stylesheet.css: stylesheet.css
 	cp $< $@
 
