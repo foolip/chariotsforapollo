@@ -20,10 +20,10 @@ OEBPS/%.html: %.html
 	./sanitize.py $< $@
 
 OEBPS/%.gif: %.gif
-	cp $< $@
+	./resize.sh $< $@ 1000 1000
 
 OEBPS/%.jpg: %.jpg
-	cp $< $@
+	./resize.sh $< $@ 1000 1000
 
 OEBPS/stylesheet.css: stylesheet.css
 	cp $< $@
