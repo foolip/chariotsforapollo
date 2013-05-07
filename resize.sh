@@ -8,8 +8,8 @@ maxw="$3"
 maxh="$4"
 
 identify -format "%w %h" "$src" | while read w h; do
-    argf="${src/%jpg/args}"
-    crop="${src/%jpg/crop}"
+    argf="${src%.*}.argf"
+    crop="${src%.*}.crop"
     if [ -e "$argf" ]; then
 	read args < "$argf"
     elif [ -e "$crop" ]; then
