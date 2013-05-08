@@ -8,9 +8,12 @@ maxw="$3"
 maxh="$4"
 
 identify -format "%w %h" "$src" | while read w h; do
+    argf="${src%.*}.argf"
     crop="${src%.*}.crop"
     size="${src%.*}.size"
-    if [ -e "$crop" ]; then
+    if [ -e "$argf" ]; then
+	read args < "$argf"
+    elif [ -e "$crop" ]; then
 	read top right bottom left < "$crop"
 	args="-crop $(($w-$left-$right))x$(($h-$top-$bottom))+$left+$top"
     fi
